@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <h1>what2watch</h1>
-      Hello
+      
     </div>
   );
 }
