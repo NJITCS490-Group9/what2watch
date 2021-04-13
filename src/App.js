@@ -1,14 +1,14 @@
 import './App.css';
-import React, { useState, useRef, useEffect } from 'react';
-import io from 'socket.io-client';
-
+import Login from './Login';
+import Logout from './Logout';
 
 function App() {
 
   return (
     <div>
-      <h1>what2watch</h1>
-      
+      <h1> Welcome to What2Watch </h1>
+      <Login />
+      <Logout />
     </div>
   );
 }
