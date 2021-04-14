@@ -9,11 +9,7 @@
     "dotenv": "^8.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
     "react-google-login": "^5.2.2",
-=======
-    "react-dropdown": "^1.9.2",
->>>>>>> sprint1_userStory4
     "react-scripts": "4.0.3",
     "socket.io-client": "^4.0.1",
     "web-vitals": "^1.1.1"
