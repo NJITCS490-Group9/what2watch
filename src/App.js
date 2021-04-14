@@ -1,12 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
+import useState from 'react';
 import VotingScreen from './VotingScreen.js'
 import './VotingScreen.css'
 
 function App() 
 {
-  const genres = ["Action", "Comedy", "Fantasy", "Horror", "Romance"];
+  //const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
+  const genres = ["Action", "Comedy", "Fantasy", "Horror", "Romance"]
   
   const voteClick = () =>
   {
