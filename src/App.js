@@ -1,28 +1,61 @@
 import './App.css';
-import React from 'react';
-import useState from 'react';
-import VotingScreen from './VotingScreen.js'
-import './VotingScreen.css'
+import Login from './Login';
+import Logout from './Logout';
+import React, { useState, useRef, useEffect } from 'react';
+import io from 'socket.io-client';
+import Create from './Create';
+import { MemberHost } from './MemberHost';
 
-function App() 
-{
-  //const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
-  const genres = ["Action", "Comedy", "Fantasy", "Horror", "Romance"]
+
+function App() {
+  const [isShown, setShown] = useState(true);
   
-  const voteClick = () =>
-  {
-    console.log("Vote button clicked!");
+  function onShowHide() {
+    setShown((prevShown) => {
+      return !prevShown;
+    });
   }
-  
-  const voteSubmit = () =>
-  {
-    console.log("Vote submitted!");
-  }
-  
+
   return (
-    <div className="App">
-      <VotingScreen genre_list={genres} voteSelect={voteClick} voteSubmit={voteSubmit}/>
+    <div>
+    <Navbar>
+      <Login />
+      <Logout />
+    </Navbar>
+      <h1> Welcome to What2Watch </h1>
+      <Create />
+    {isShown === true ? (
+      <div>
+        <h1> Welcome to What2Watch </h1> 
+        <Login /> 
+        <Logout />
+      </div>
+      ) : (
+      ""
+      )}
+      <div>
+        {isShown === true ? (
+          <button class="button" onClick={() => onShowHide()}>Continue{" "}</button>
+        ) : (
+        ""
+        )}
+        {isShown === false ? (
+        <div>
+        <MemberHost />
+        </div>
+        ) : (
+        ""
+        )}
+      </div>
     </div>
+  );
+}
+
+function Navbar(props) {
+  return (
+    <nav className="navbar">
+      <ul className="navbar-nav"> { props.children }</ul>
+    </nav>
   );
 }
 

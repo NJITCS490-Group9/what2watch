@@ -1,4 +1,6 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
+import io from "socket.io-client";
 
 const genreCardData = {
     'Action': 'https://i.imgur.com/aHzf8e9.gif',
@@ -8,20 +10,48 @@ const genreCardData = {
     'Romance': 'https://image.freepik.com/free-photo/couple-silhouettes-beach-sunset_106150-110.jpg'
 }
 
+const socket = io();
+
 export default function VotingScreen(props)
 {
-    let genre_cards = [];
+    const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
+    const [selectedGenre, setSelectedGenre] = useState("");
+    const [hasSelected, toggleSelected] = useState(false);
     
-    for (let i = 0; i < props.genre_list.length; i++)
+    const voteSelect = (e) =>
     {
-        genre_cards.push(<GenreCard name={props.genre_list[i]} onClick={props.voteSelect} />);
+        setSelectedGenre(e.target.value);
+        alert("You have chosen " + e.target.value + " movie.");
+        document.getElementsByClassName("genre_submit_btn").disabled = false;
     }
     
+    const voteSubmit = () =>
+    {
+        document.getElementsByClassName("genre_select_btn").disabled = true;
+    }
+    
+    let genre_cards = [];
+    
+    for (let i = 0; i < genres.length; i++)
+    {
+        genre_cards.push(<GenreCard name={genres[i]} voteSelect={voteSelect} />);
+    }
+    
+    useEffect(() =>{
+        socket.on("get_genres", (data) =>{
+            console.log("Genre list received from host.")
+            setGenres(data["genres"]);
+        }, [])
+        
+        
+    })
+    
+
     return (
       <div className="voting_screen" >
         <h2> Movie Genre Vote </h2>
         {genre_cards}
-        <button type="button" className="genre_submit_btn" onClick={props.voteSubmit} > Submit Vote </button>
+        <button type="button" className="genre_submit_btn" onClick={voteSubmit} disabled> Submit Vote </button>
       
       </div>
     );
@@ -34,7 +64,7 @@ function GenreCard(props)
             <img src={genreCardData[props.name]} alt={props.name}/>
             <div className="genre_card_container">
                 <h4> {props.name} </h4>
-                <button type="button" className="genre_select_btn" onClick={props.voteSelect}>Select</button>
+                <button type="button" className="genre_select_btn" value={props.name} onClick={props.voteSelect}>Select</button>
             </div>
         </div>
     );    
