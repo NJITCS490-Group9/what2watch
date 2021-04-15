@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 """System module."""
+=======
+>>>>>>> main
 import os
 import sys
 import unittest
