@@ -3,7 +3,7 @@ import Login from './Login';
 import Create from './Create';
 import { MemberHost } from './MemberHost';
 import VotingScreen from './VotingScreen';
-import './VotingScreen.css';
+import './VotingScreen.css'; 
 
 
 
