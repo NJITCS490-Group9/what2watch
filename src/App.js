@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 import Create from './Create';
 import { MemberHost } from './MemberHost';
 import VotingScreen from './VotingScreen';
-import './VotingScreen.css'
+import './VotingScreen.css';
 
 
 function App() {
