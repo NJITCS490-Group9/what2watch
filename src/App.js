@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './App.css';
 import Login from './Login';
 import Logout from './Logout';
