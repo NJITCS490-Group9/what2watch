@@ -10,11 +10,21 @@ function App() {
 
   return (
     <div>
-      <h1> Welcome to What2Watch </h1>
+    <Navbar>
       <Login />
       <Logout />
+    </Navbar>
+      <h1> Welcome to What2Watch </h1>
       <Create />
     </div>
+  );
+}
+
+function Navbar(props) {
+  return (
+    <nav className="navbar">
+      <ul className="navbar-nav"> { props.children }</ul>
+    </nav>
   );
 }
 
