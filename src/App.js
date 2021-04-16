@@ -10,6 +10,7 @@ function App() {
  
   return (
     <div>
+    <h1> Welcome to What2Watch </h1>
     <Navbar>
       <Login />
     </Navbar>

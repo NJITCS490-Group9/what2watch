@@ -36,7 +36,6 @@ function Login() {
     <div>
     {isShown === true ? (
       <div>
-      <h1> Welcome to What2Watch </h1>
       <GoogleLogin
         clientId={clientId}
         buttonText="Login"
@@ -46,24 +45,17 @@ function Login() {
         style={{ marginTop: '500px' }}
         isSignedIn={true}
       />
-        <Logout />
       </div>
-      ) : (
-      ""
-      )}
+      ) : <Logout /> }
       <div>
         {isShown === true ? (
           <button class="button" onClick={() => onShowHide()}>Continue{" "}</button>
-        ) : (
-        ""
-        )}
+        ) : null }
         {isShown === false ? (
         <div>
         <MemberHost />
         </div>
-        ) : (
-        ""
-        )}
+        ) : null }
       </div>
     </div>
   );
