@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useRef } from 'react';
 import io from 'socket.io-client';
 import Dropdown from './Dropdown';
