@@ -30,7 +30,7 @@ export default function VotingScreen(props)
     {
         setSelectedGenre(e.target.value);
         alert("You have chosen " + e.target.value + " Movie.");
-        document.getElementsByClassName("genre_submit_btn").removeAttribute("disabled");
+        document.getElementById("submitVote").removeAttribute("disabled");
     }
     
     const voteSubmit = () =>
@@ -79,7 +79,7 @@ export default function VotingScreen(props)
       <div className="voting_screen">
         <h2> Movie Genre Vote </h2>
         {genre_cards}
-        <button type="button" className="genre_submit_btn" onClick={voteSubmit} disabled> Submit Vote </button>
+        <button type="button" className="genre_submit_btn" id="submitVote" onClick={voteSubmit} disabled> Submit Vote </button>
       </div>
     );
 }
