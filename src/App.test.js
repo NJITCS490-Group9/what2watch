@@ -18,3 +18,16 @@ test("Confirm Login screen continue button is showing correctly", () => {
 
 });
 
+test("Confirm VotingScreen does not appear at the start", () => {
+  const result = render(<App />);
+  const continueButton = screen.getByText("Continue");
+  const voteSubmitButton = screen.queryByText("Submit Vote");
+  
+  expect(continueButton).toBeInTheDocument();
+  expect(voteSubmitButton).toBeNull();
+  fireEvent.click(continueButton);
+  expect(continueButton).not.toBeInTheDocument
+  expect(voteSubmitButton).toBeNull();
+
+
+});
