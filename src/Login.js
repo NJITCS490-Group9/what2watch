@@ -40,7 +40,7 @@ function Login() {
         onFailure={onFailure}
         cookiePolicy={'single_host_origin'}
         style={{ marginTop: '500px' }}
-        isSignedIn={true}
+        isSignedIn={true}                        // Krupesh, maybe you can use this state to show <MemberHost />. You can make a state  isMemberHostShown
       />
       </div>
       ) : <Logout /> }

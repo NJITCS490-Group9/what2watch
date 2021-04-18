@@ -30,7 +30,6 @@ function App() {
     <Navbar>
       <Login />
     </Navbar>
-      <Create />
       </div>
   );
 }

@@ -17,6 +17,8 @@ function Create() {
     setShowCreate((prevShowLogin) => {
       socket.emit("room_created", {genres: hostSelectedGenres}); //hostSelectedGenres should be an array of genre strings based on what was checked. ex: ["Action", "Fantasy"]
       return !prevShowLogin;
+    setShowCreate((prevShowCreate) => {
+      return !prevShowCreate;
     });
   }
   
