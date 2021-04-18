@@ -15,7 +15,6 @@ function App() {
       <Navbar>
         <Login />
       </Navbar>
-      <Results />
     </div>
     
   );
