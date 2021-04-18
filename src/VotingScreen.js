@@ -19,43 +19,16 @@ export default function VotingScreen(props)
     const [selectedGenre, setSelectedGenre] = useState("");
     const [hasSelected, toggleSelected] = useState(false);
     
-    //states to keep track of how many votes each genre gets
-    const [actionVotes, updateActionVotes] = useState(0);
-    const [comedyVotes, updateComedyVotes] = useState(0);
-    const [fantasyVotes, updateFantasyVotes] = useState(0);
-    const [horrorVotes, updateHorrorVotes] = useState(0);
-    const [romanceVotes, updateRomanceVotes] = useState(0);
-    
     const voteSelect = (e) =>
     {
         setSelectedGenre(e.target.value);
-        alert("You have chosen " + e.target.value + " Movie.");
-        document.getElementById("submitVote").removeAttribute("disabled");
+        alert("You have chosen " + e.target.value + " movie.");
+        document.getElementsByClassName("genre_submit_btn").disabled = false;
     }
     
     const voteSubmit = () =>
     {
-        document.getElementsByClassName("genre_select_btn").setAttribute("disabled", "disabled");
-        switch(selectedGenre)
-        {
-            case "Action":
-                updateActionVotes(actionVotes + 1);
-                break;
-            case "Comedy":
-                updateComedyVotes(comedyVotes + 1);
-                break;
-            case "Fantasy":
-                updateFantasyVotes(fantasyVotes + 1);
-                break;
-            case "Horror":
-                updateHorrorVotes(horrorVotes + 1);
-                break;
-            case "Romance":
-                updateRomanceVotes(romanceVotes + 1);
-                break;
-            default:
-                updateActionVotes(actionVotes + 0); //placeholder for when I can think of a better thing to do for default case
-        }
+        document.getElementsByClassName("genre_select_btn").disabled = true;
     }
     
     let genre_cards = [];
@@ -76,10 +49,11 @@ export default function VotingScreen(props)
     
 
     return (
-      <div className="voting_screen">
+      <div className="voting_screen" >
         <h2> Movie Genre Vote </h2>
         {genre_cards}
-        <button type="button" className="genre_submit_btn" id="submitVote" onClick={voteSubmit} disabled> Submit Vote </button>
+        <button type="button" className="genre_submit_btn" onClick={voteSubmit} disabled> Submit Vote </button>
+      
       </div>
     );
 }
