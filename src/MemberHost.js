@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 /* eslint-disable */
-import React from 'react';
-
-=======
 import React, { useState, useRef } from 'react';
 import Create from './Create';
 import Join from './Join';
->>>>>>> sprint1_userStory2
 export function MemberHost(){
     const [showHost, setShowHost] = useState(true);
     const [showCreate, setShowCreate] = useState(false);

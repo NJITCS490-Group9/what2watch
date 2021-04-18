@@ -11,7 +11,8 @@ function Create() {
   const timeRef = useRef(null);
   const dateRef = useRef(null);
   const placeRef = useRef(null);
-  const passcodeRef = useRef(null);
+  const host_passcodeRef = useRef(null);
+  
   
   function onCreate() {
     setShowCreate((prevShowCreate) => {
@@ -34,7 +35,7 @@ function Create() {
           <p> <input type="checkbox"/> Horror </p>
           <p> <input type="checkbox"/> Fantasy </p>
           <p> <input type="checkbox"/> Romance </p>
-          <p> Room Passcode <input ref={passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
+          <p> Room Passcode <input ref={host_passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
           <button type="submit" onClick={() => onCreate()}> Create Room </button>
         </div>
       ) : null }
