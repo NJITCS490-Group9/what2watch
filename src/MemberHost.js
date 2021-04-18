@@ -37,7 +37,7 @@ export function MemberHost(){
             </div>
         ) : null }
         { showCreate === false ? ( null ) : <Create /> }
-        { showJoin === false ? ( null ) : <h1> <Join /> </h1> }
+        { showJoin === false ? ( null ) : <Join /> }
     </>
   );
 }
