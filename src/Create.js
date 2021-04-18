@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import io from 'socket.io-client';
 import Dropdown from './Dropdown';
+import VotingScreen from './VotingScreen';
 
 const socket = io();
 

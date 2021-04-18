@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import {useState, useEffect} from 'react';
+import Results from './Results';
 import io from "socket.io-client";
 
 const genreCardData = {
@@ -29,6 +30,10 @@ export default function VotingScreen(props)
     const voteSubmit = () =>
     {
         document.getElementsByClassName("genre_select_btn").disabled = true;
+        setSelectedGenre('ACTION MOVIE');
+        console.log(selectedGenre);
+        //selectedGenre.setSelectedGenre("ACTION MOVIE");
+        return <Results selectedGenre={selectedGenre} socket={socket} />;
     }
     
     let genre_cards = [];

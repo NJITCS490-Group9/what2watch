@@ -5,17 +5,19 @@ import Create from './Create';
 import { MemberHost } from './MemberHost';
 import VotingScreen from './VotingScreen';
 import './VotingScreen.css';
-
+import Results from './Results';
 
 function App() {
- 
+  
   return (
     <div>
-    <h1> Welcome to What2Watch </h1>
-    <Navbar>
-      <Login />
-    </Navbar>
-      </div>
+      <h1> Welcome to What2Watch </h1>
+      <Navbar>
+        <Login />
+      </Navbar>
+      <Results />
+    </div>
+    
   );
 }
 
