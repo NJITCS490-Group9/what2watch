@@ -18,12 +18,14 @@ export default function VotingScreen(props)
     const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
     const [selectedGenre, setSelectedGenre] = useState("");
     const [hasSelected, toggleSelected] = useState(false);
+    let numberOfParticipants = 0;
+    const [numVotes, updateNumVotes] = useState(0);
     
     const voteSelect = (e) =>
     {
         setSelectedGenre(e.target.value);
-        alert("You have chosen " + e.target.value + " movie.");
-        document.getElementsByClassName("genre_submit_btn").disabled = false;
+        alert("You have chosen " + e.target.value + " Movie.");
+        document.getElementById("submitVote").removeAttribute("disabled");
     }
     
     function voteSubmit()
@@ -41,22 +43,31 @@ export default function VotingScreen(props)
         {
             case "Action":
                 updateActionVotes(actionVotes + 1);
+                updateNumVotes(numVotes + 1)
                 break;
             case "Comedy":
                 updateComedyVotes(comedyVotes + 1);
+                updateNumVotes(numVotes + 1)
                 break;
             case "Fantasy":
                 updateFantasyVotes(fantasyVotes + 1);
+                updateNumVotes(numVotes + 1)
                 break;
             case "Horror":
                 updateHorrorVotes(horrorVotes + 1);
+                updateNumVotes(numVotes + 1)
                 break;
             case "Romance":
                 updateRomanceVotes(romanceVotes + 1);
+                updateNumVotes(numVotes + 1)
                 break;
             default:
                 console.log("Uh oh"); //placeholder for when I can think of a better thing to do for default case
         }
+    if(numVotes == numberOfParticipants)
+    {
+        socket.emit("vote_complete");
+    }
     }
     
     let genre_cards = [];
@@ -70,6 +81,7 @@ export default function VotingScreen(props)
         socket.on("get_genres", (data) =>{
             console.log("Genre list received from host.")
             setGenres(data["genres"]);
+            numberOfParticipants += data["numParticipants"];
         }, [])
     })
     
@@ -78,7 +90,7 @@ export default function VotingScreen(props)
       <div className="voting_screen" >
         <h2> Movie Genre Vote </h2>
         {genre_cards}
-        <button type="button" className="genre_submit_btn" onClick={voteSubmit} disabled> Submit Vote </button>
+        <button type="button" className="genre_submit_btn" id= "submitVote" onClick={voteSubmit} disabled> Submit Vote </button>
       
       </div>
     );
