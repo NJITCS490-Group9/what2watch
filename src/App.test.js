@@ -5,16 +5,29 @@ import {
   queryByAttribute,
   wrapper
 } from "@testing-library/react";
+
 import App from "./App";
 
-test("Only host-selected genres are displayed", () => {
+test("Confirm Login screen continue button is showing correctly", () => {
   const result = render(<App />);
+  const continueButton = screen.getByText("Continue");
   
-  setGenres(['Action', 'Fantasy']);
-  const genres = wrapper.find("div.genre_card");
+  expect(continueButton).toBeInTheDocument();
+  fireEvent.click(continueButton);
+  expect(continueButton).not.toBeInTheDocument();
 
-  expect(submitButton).toBeInTheDocument();
-  fireEvent.click(submitButton);
-  expect(submitButton).toBeInTheDocument();
 });
 
+test("Confirm VotingScreen does not appear at the start", () => {
+  const result = render(<App />);
+  const continueButton = screen.getByText("Continue");
+  const voteSubmitButton = screen.queryByText("Submit Vote");
+  
+  expect(continueButton).toBeInTheDocument();
+  expect(voteSubmitButton).toBeNull();
+  fireEvent.click(continueButton);
+  expect(continueButton).not.toBeInTheDocument
+  expect(voteSubmitButton).toBeNull();
+
+
+});
