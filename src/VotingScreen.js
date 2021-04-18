@@ -33,9 +33,17 @@ export default function VotingScreen(props)
         document.getElementById("submitVote").removeAttribute("disabled");
     }
     
-    const voteSubmit = () =>
+    function voteSubmit()
     {
-        document.getElementsByClassName("genre_select_btn").setAttribute("disabled", "disabled");
+        alert("You have submitted your vote!");
+        
+        //disable each of the select genre buttons so vote can't be changed after submitting
+        const voteButtons = document.getElementsByClassName("genre_select_btn");
+        for(let i = 0; i < voteButtons.length; i++)
+        {
+            voteButtons[i].setAttribute("disabled", true);
+        }
+        
         switch(selectedGenre)
         {
             case "Action":
@@ -54,7 +62,7 @@ export default function VotingScreen(props)
                 updateRomanceVotes(romanceVotes + 1);
                 break;
             default:
-                updateActionVotes(actionVotes + 0); //placeholder for when I can think of a better thing to do for default case
+                console.log("Uh oh"); //placeholder for when I can think of a better thing to do for default case
         }
     }
     
@@ -70,8 +78,6 @@ export default function VotingScreen(props)
             console.log("Genre list received from host.")
             setGenres(data["genres"]);
         }, [])
-        
-        
     })
     
 

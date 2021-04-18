@@ -22,7 +22,7 @@ function App() {
   }, []);
  
  if(isVotingTime){
-   return <VotingScreen/>
+   return (<VotingScreen/>);
  }
   return (
     <div>
@@ -30,6 +30,7 @@ function App() {
     <Navbar>
       <Login />
     </Navbar>
+    <VotingScreen/>
       </div>
   );
 }
