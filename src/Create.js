@@ -15,6 +15,7 @@ function Create() {
   const placeRef = useRef(null);
   const host_passcodeRef = useRef(null);
 
+
   const [genres, setGenres] = useState([
     { id: 1, value: "Comedy", isChecked: false },
     { id: 2, value: "Action", isChecked: false },

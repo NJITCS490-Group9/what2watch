@@ -30,6 +30,11 @@ def on_connect():
 def test(data):
     print("test")
 
+@socketio.on('room_created')
+def on_vote_start(data):
+    socketio.emit('get_genres', data, broadcast=True, include_self=True)
+    socketio.emit('vote_start', broadcast=True, include_self=True)
+
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
     socketio.run(
