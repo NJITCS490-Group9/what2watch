@@ -7,7 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 from recommends import get_recommendation
 
 
-
 app = Flask(__name__, static_folder='./build/static')
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
