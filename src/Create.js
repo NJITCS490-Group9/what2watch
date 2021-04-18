@@ -14,8 +14,8 @@ function Create() {
   const passcodeRef = useRef(null);
   
   function onCreate() {
-    setShowCreate((prevShowLogin) => {
-      return !prevShowLogin;
+    setShowCreate((prevShowCreate) => {
+      return !prevShowCreate;
     });
   }
   
