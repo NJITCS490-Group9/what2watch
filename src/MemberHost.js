@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Create from './Create';
+import Join from './Join';
 export function MemberHost(){
     const [showHost, setShowHost] = useState(true);
     const [showCreate, setShowCreate] = useState(false);
@@ -35,7 +36,7 @@ export function MemberHost(){
             </div>
         ) : null }
         { showCreate === false ? ( null ) : <Create /> }
-        { showJoin === false ? ( null ) : <h1> Join Page </h1> }
+        { showJoin === false ? ( null ) : <h1> <Join /> </h1> }
     </>
   );
 }
