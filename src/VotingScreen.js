@@ -30,7 +30,7 @@ export default function VotingScreen(props)
     
     function voteSubmit()
     {
-        alert("You have submitted your vote!");
+        alert("You have submitted your vote! Please wait for the results to be calculated.");
         
         //disable each of the select genre buttons so vote can't be changed after submitting
         const voteButtons = document.getElementsByClassName("genre_select_btn");
