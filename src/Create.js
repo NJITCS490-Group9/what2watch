@@ -15,7 +15,7 @@ function Create() {
   const placeRef = useRef(null);
   const host_passcodeRef = useRef(null);
 
-  const [genres] = useState([
+  const [genres, setGenres] = useState([
     { id: 1, value: "Comedy", isChecked: false },
     { id: 2, value: "Action", isChecked: false },
     { id: 3, value: "Horror", isChecked: false },
@@ -68,7 +68,7 @@ function Create() {
           <p> Room Passcode <input ref={host_passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
           <button type="submit" onClick={() => onCreate()}> Create Room </button>
         </div>
-      ) : null }
+      ) : <VotingScreen /> }
     </>
   );
 }

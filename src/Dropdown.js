@@ -1,9 +1,9 @@
 /* eslint-disable */
-import React from 'react';
+import React, { useState } from 'react';
 
 const Dropdown = () => {
 
-  const [options] = React.useState([
+  const [options] = useState([
     { value: "movies"},
     { value: "tv show" },
     { value: "both" }

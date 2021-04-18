@@ -7,15 +7,16 @@ from flask_sqlalchemy import SQLAlchemy
 from recommends import get_recommendation
 
 
+
 app = Flask(__name__, static_folder='./build/static')
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 socketio = SocketIO(app,
                     cors_allowed_origins="*",
                     json=json,
                     manage_session=False)
-
 
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
