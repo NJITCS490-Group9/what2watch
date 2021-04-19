@@ -79,17 +79,15 @@ def add_user(data):
     return None
 
 @socketio.on('getRecommendation')
-def getRecommendation():
+def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("HERE!!")
+    print(data['selectedGenre'])
     #genres=["Action", "Comedy", "Fantasy", "Horror", "Romance"]
     print("GET RECOMMENDATIONS")
-    movies = ""
     
-    #return render_template(
-    #    "index.html",
-    movies = get_recommendation()
-    #)
+    movies = get_recommendation(data['selectedGenre'])
+    print(movies)
 
 @socketio.on('room_created')
 def on_vote_start(data):
