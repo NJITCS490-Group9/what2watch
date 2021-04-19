@@ -8,12 +8,13 @@ import Create from './Create';
 import { MemberHost } from './MemberHost';
 import VotingScreen from './VotingScreen';
 import './VotingScreen.css';
-
+import Results from './Results';
 
 const socket = io();
 
 function App() {
-    const [isVotingTime, setVotingTime] = useState(false);
+  
+  const [isVotingTime, setVotingTime] = useState(false);
  
   useEffect(() => {
     
@@ -33,6 +34,7 @@ function App() {
         <Login />
         </Navbar>
     </div>
+
   );
 }
 
