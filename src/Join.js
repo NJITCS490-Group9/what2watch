@@ -1,9 +1,9 @@
 /* eslint-disable */
 import React, { useRef } from 'react';
-import io from 'socket.io-client';
-const socket = io();
+import PropTypes from 'prop-types';
 
-function Join() {
+function Join(props) {
+    const { name, socket } = props;
     const passcodeRef = useRef(null);
     
     return(
@@ -15,5 +15,10 @@ function Join() {
         </>
     )
 }
+
+Join.propTypes = {
+  name: PropTypes.string.isRequired,
+  socket: PropTypes.any.isRequired,
+};
 
 export default Join;

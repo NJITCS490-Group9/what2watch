@@ -1,8 +1,14 @@
 /* eslint-disable */
 import React from 'react';
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Results from './Results';
+=======
+import {useState, useEffect} from 'react';
+import io from "socket.io-client";
+import PropTypes from 'prop-types';
+>>>>>>> main
 
 const genreCardData = {
     'Action': 'https://i.imgur.com/aHzf8e9.gif',
@@ -12,11 +18,19 @@ const genreCardData = {
     'Romance': 'https://image.freepik.com/free-photo/couple-silhouettes-beach-sunset_106150-110.jpg',
 };
 
+<<<<<<< HEAD
 const socket = io();
 
 export default function VotingScreen() {
     const [genres, setGenres] = useState(['Action', 'Comedy', 'Fantasy', 'Horror', 'Romance']);
     const [selectedGenre, setSelectedGenre] = useState('');
+=======
+function VotingScreen(props)
+{
+    const { name, socket } = props;
+    const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
+    const [selectedGenre, setSelectedGenre] = useState("");
+>>>>>>> main
     const [hasSelected, toggleSelected] = useState(false);
     let numberOfParticipants = 0;
     const [numVotes, updateNumVotes] = useState(0);
@@ -30,8 +44,14 @@ export default function VotingScreen() {
         console.log('WOW');
     }
     
+<<<<<<< HEAD
     function voteSubmit(){//to fix: for some reason this function doesn't run when submit button is clicked.
         alert('You have submitted your vote! Please wait for the results to be calculated.');
+=======
+    const voteSubmit = () =>
+    {
+        alert("You have submitted your vote! Please wait for the results to be calculated.");
+>>>>>>> main
         
         //disable each of the select genre buttons so vote can't be changed after submitting
         const voteButtons = document.getElementsByClassName('genre_select_btn');
@@ -84,8 +104,7 @@ export default function VotingScreen() {
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
-        //selectedGenre.setSelectedGenre("ACTION MOVIE");
-        return <Results selectedGenre={selectedGenre} socket={socket} />;
+        return <Results name={name} selectedGenre={selectedGenre} socket={socket} />;
     }
 
     return (
@@ -97,6 +116,10 @@ export default function VotingScreen() {
       </div>
     );
 }
+VotingScreen.propTypes = {
+    name: PropTypes.string.isRequired,
+    socket: PropTypes.any.isRequired,
+};
 
 function GenreCard(props)
 {
@@ -110,3 +133,5 @@ function GenreCard(props)
         </div>
     );    
 }
+
+export default VotingScreen;

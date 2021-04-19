@@ -2,7 +2,11 @@
 import React, { useState, useRef } from 'react';
 import Create from './Create';
 import Join from './Join';
-export function MemberHost(){
+import PropTypes from 'prop-types';
+
+export function MemberHost(props){
+  
+    const { name, socket } = props;
     const [showHost, setShowHost] = useState(true);
     const [showCreate, setShowCreate] = useState(false);
     const [showJoin, setShowJoin] = useState(false);
@@ -36,10 +40,15 @@ export function MemberHost(){
             <button type="submit" onClick={() => onJoin()}>Join</button>
             </div>
         ) : null }
-        { showCreate === false ? ( null ) : <Create /> }
-        { showJoin === false ? ( null ) : <Join /> }
+        { showCreate === false ? ( null ) : <Create name={name} socket={socket} /> }
+        { showJoin === false ? ( null ) : <Join name={name} socket={socket} /> }
     </>
   );
 }
+
+MemberHost.propTypes = {
+  name : PropTypes.string.isRequired,
+  socket: PropTypes.any.isRequired,
+};
 
 export default MemberHost;
