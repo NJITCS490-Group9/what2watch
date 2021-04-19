@@ -10,10 +10,12 @@ function Results(props) {
   socket.on('returningDetails', (data) => {
     console.log('RETURNING DETAILS received');
     //console.log(data.message);
-    console.log(data.time);
+    console.log(data);
     setInfoList(prevMessages => [...prevMessages, data.time]);
     setInfoList(prevMessages => [...prevMessages, data.date]);
     setInfoList(prevMessages => [...prevMessages, data.place]);
+    console.log("INFO LIST:");
+    console.log(infoList);
     //setInfoList(data.message);
   });
   //if (infoList.length == 3){
@@ -26,7 +28,7 @@ function Results(props) {
     setWatchVideo(data.message);
     setVideoPic(data.messages);
   });
-  if (infoList.length == 0 && watchVideo.length == 0){
+  if (watchVideo.length == 0){
     socket.emit('returnDetails');
     socket.emit('getRecommendation', { selectedGenre });
     

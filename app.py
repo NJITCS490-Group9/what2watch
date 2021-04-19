@@ -92,12 +92,12 @@ def on_details(data):
     print(data)
     if len(nameDateTimePlace) == 0:
         nameDateTimePlace.append(data["name"])
-    elif len(nameDateTimePlace) == 1:
+    '''elif len(nameDateTimePlace) == 1:
         nameDateTimePlace.append(data["date"])
     elif len(nameDateTimePlace) == 2:
         nameDateTimePlace.append(data["time"])
     elif len(nameDateTimePlace) == 3:
-        nameDateTimePlace.append(data['place'])
+        nameDateTimePlace.append(data['place'])'''
     print(nameDateTimePlace)
     
 @socketio.on('returnDetails')
@@ -108,6 +108,7 @@ def on_returnDetails():
 @socketio.on('getRecommendation')
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
+    print("GET RECOMMENDED MOVIE!!!!!!")
     admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
     num = randint(0,4)
     movies = get_recommendation(num, data['selectedGenre'])
