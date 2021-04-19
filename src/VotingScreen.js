@@ -32,7 +32,7 @@ export default function VotingScreen(props)
         console.log("WOW");
     }
     
-    function voteSubmit()
+    function voteSubmit() //to fix: for some reason this function doesn't run when submit button is clicked.
     {
         alert("You have submitted your vote! Please wait for the results to be calculated.");
         
