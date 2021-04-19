@@ -42,6 +42,7 @@ def index(filename):
 
 @socketio.on('connect')
 def on_connect():
+    """For testing purposes. To see if socket.io is working"""
     print('User connected!')
     
 
@@ -57,6 +58,7 @@ def on_join(data):
     if str(data["name"]) not in users:
         username = add_user(data["name"])
     print(users)
+
 
 def add_user(data):
     """What on_join calls to add new user to database upon login"""
@@ -78,21 +80,24 @@ def add_user(data):
         return username
     return None
 
+
 @socketio.on('getRecommendation')
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("HERE!!")
     print(data['selectedGenre'])
-    #genres=["Action", "Comedy", "Fantasy", "Horror", "Romance"]
     print("GET RECOMMENDATIONS")
-    
     movies = get_recommendation(data['selectedGenre'])
     print(movies)
+    #person = db.session.query(models.Person).filter_by(username=)
+    
+    
 
 @socketio.on('room_created')
 def on_vote_start(data):
     socketio.emit('get_genres', data, broadcast=True, include_self=True)
     socketio.emit('vote_start', broadcast=True, include_self=True)
+
 
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
