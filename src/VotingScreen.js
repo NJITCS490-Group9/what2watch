@@ -3,6 +3,9 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import io from "socket.io-client";
 import PropTypes from 'prop-types';
+import Results from './Results';
+
+const socket = io();
 
 const genreCardData = {
     'Action': 'https://i.imgur.com/aHzf8e9.gif',
@@ -14,7 +17,7 @@ const genreCardData = {
 
 function VotingScreen(props)
 {
-    const { name, socket } = props;
+    const { name } = props;
     const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
     const [selectedGenre, setSelectedGenre] = useState("");
     const [hasSelected, toggleSelected] = useState(false);
@@ -81,11 +84,11 @@ function VotingScreen(props)
     }
     
     useEffect(() =>{
-        socket.on("get_genres", (data) =>{
-            console.log("Genre list received from host.")
-            setGenres(data["genres"]);
-            numberOfParticipants += data["numParticipants"];
-        }, [])
+        socket.on('get_genres', (data) => {
+            console.log(data)
+            setGenres(data.genres);
+            numberOfParticipants += data.guests;
+        })
     })
     
     if (selectedGenre.length != 0){
