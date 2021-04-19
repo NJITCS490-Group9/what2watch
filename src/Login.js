@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Logout from './Logout';
 import { MemberHost } from './MemberHost';
+import io from 'socket.io-client';
+
+const socket = io();
 
 require('dotenv').config();
 console.log(process.env);
@@ -14,6 +17,10 @@ function Login() {
   const onSuccess = (res) => {
     console.log('Login Success: currentUser:', res.profileObj);
     alert(`Logged in successfully welcome ${res.profileObj.name}!!!`);
+    console.log("HERRRRRRRRRRE");
+    console.log(res.profileObj.name);
+    const name = res.profileObj.name;
+    socket.emit('join', { name });
   };
 
   const onFailure = (res) => {

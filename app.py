@@ -45,6 +45,39 @@ def on_connect():
     print('User connected!')
     
 
+@socketio.on('join')
+def on_join(data):
+    """Adds new user to database when they first login"""
+    print("ADDING Logins")
+    print(str(data["name"]))
+    all_people = models.Person.query.all()
+    users = []
+    for person in all_people:
+        users.append(person.username)
+    if str(data["name"]) not in users:
+        username = add_user(data["name"])
+    print(users)
+
+def add_user(data):
+    """What on_join calls to add new user to database upon login"""
+    print("ADD_USERRRR")
+    print(str(data))
+    #print(data)
+    all_people = models.Person.query.all()
+    users = []
+    for person in all_people:
+        users.append(person.username)
+    if data not in users:
+        new_user = models.Person(username=data, recs="")
+        db.session.add(new_user)
+        db.session.commit()
+        all_people = models.Person.query.all()
+        username = []
+        for person in all_people:
+            username.append(person.username)
+        return username
+    return None
+
 @socketio.on('getRecommendation')
 def getRecommendation():
     """Returns recommended tv show or movie for the specified genre"""
