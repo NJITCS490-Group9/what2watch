@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React from 'react';
 import {useState, useEffect} from 'react';
-import Results from './Results';
 import io from "socket.io-client";
 
 const genreCardData = {
@@ -31,13 +30,6 @@ export default function VotingScreen(props)
     
     function voteSubmit()
     {
-
-        document.getElementsByClassName("genre_select_btn").disabled = true;
-        setSelectedGenre('ACTION MOVIE');
-        console.log(selectedGenre);
-        //selectedGenre.setSelectedGenre("ACTION MOVIE");
-        return <Results selectedGenre={selectedGenre} socket={socket} />;
-
         alert("You have submitted your vote!");
         
         //disable each of the select genre buttons so vote can't be changed after submitting
@@ -72,11 +64,10 @@ export default function VotingScreen(props)
             default:
                 console.log("Uh oh"); //placeholder for when I can think of a better thing to do for default case
         }
-        if(numVotes == numberOfParticipants)
-        {
-            socket.emit("vote_complete");
-        }
-
+    if(numVotes == numberOfParticipants)
+    {
+        socket.emit("vote_complete");
+    }
     }
     
     let genre_cards = [];
