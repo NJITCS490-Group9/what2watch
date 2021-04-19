@@ -1,17 +1,23 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-//import PropTypes from 'prop-types';
+// import io from 'socket.io-client';
+import PropTypes from 'prop-types';
 
-const socket = io(); // Connects to socket connection
+// const socket = io(); // Connects to socket connection
 
 function Results(props){
   
-  const { selectedGenre } = props;
+  const { selectedGenre, socket } = props;
   //selectedGenre = "Action Movie";
   
+  var actionTitle = ['Fight Club', 'Inception', 'Avengers: Endgame', 'Fast and Furious', 'Wanda Vision'];
+  var comedyTitle = ['The Big Bang Theory', 'Glee', 'Friend', 'The Office', 'Central Intelligence'];
+  var fantasyTitle = ['Divergent', 'Star Wars', 'Percy Jackson: The Lightning Thief', 'Harry Potter: Prisoner of Azkaban','Game of Thrones'];
+  var horrorTitle = ['It', 'Ma', 'The Quiet Place', 'The Bride of Frankenstein', 'American Horror Story'];
+  var romanceTitle = ['The Notebook', 'The Fault in Our Stars', 'Little Women', 'Titanic', 'Pride & Prejudice'];
+
   function recs(){
-    socket.emit('getRecommendation');
+    socket.emit('getRecommendation', {selectedGenre});
     console.log("BUTTON CLICKED");
     return;
   }
@@ -34,8 +40,9 @@ function Results(props){
   );
 }
 
-//Results.propTypes = {
-//  socket: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
-//};
+Results.propTypes = {
+  selectedGenre: PropTypes.string.isRequired,
+  socket: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 export default Results;
