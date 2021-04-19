@@ -105,7 +105,6 @@ def on_returnDetails():
     """Returns name, date, time, place specifications"""
     socketio.emit('returningDetails', {'message': nameDateTimePlace})
 
-
 @socketio.on('getRecommendation')
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
@@ -130,13 +129,13 @@ def getRecommendation(data):
     print(users)
     socketio.emit('returnRec', {"message": movies, "messages":pic})
     
-    
-
 @socketio.on('room_created')
 def on_vote_start(data):
-    socketio.emit('get_genres', data, broadcast=True, include_self=True)
+    print(data)
+    socketio.emit('get_genres', data)
     socketio.emit('vote_start', broadcast=True, include_self=True)
-    #socketio.emit('returningDetails', data)
+    socketio.emit('returningDetails', data)
+
 
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg

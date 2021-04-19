@@ -9,12 +9,12 @@ function Results(props) {
   const [videoPic, setVideoPic] = useState('');
   socket.on('returningDetails', (data) => {
     console.log('RETURNING DETAILS received');
-    console.log(data.message);
-    //console.log(data.time);
-    //setInfoList(prevMessages => [...prevMessages, data.time]);
-    //setInfoList(prevMessages => [...prevMessages, data.date]);
-    //setInfoList(prevMessages => [...prevMessages, data.place]);
-     setInfoList(data.message);
+    //console.log(data.message);
+    console.log(data.time);
+    setInfoList(prevMessages => [...prevMessages, data.time]);
+    setInfoList(prevMessages => [...prevMessages, data.date]);
+    setInfoList(prevMessages => [...prevMessages, data.place]);
+    //setInfoList(data.message);
   });
   //if (infoList.length == 3){
     
