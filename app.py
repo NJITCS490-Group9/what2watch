@@ -5,6 +5,8 @@ from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from recommends import get_recommendation
+from recommends import get_picture
+from random import randint
 
 from dotenv import load_dotenv, find_dotenv
 
@@ -104,10 +106,13 @@ def on_returnDetails():
 
 @socketio.on('getRecommendation')
 def getRecommendation(data):
+    num = randint(0,4)
+    print(num)
     """Returns recommended tv show or movie for the specified genre"""
     print(data['selectedGenre'])
     print("GET RECOMMENDATIONS")
-    movies = get_recommendation(data['selectedGenre'])
+    movies = get_recommendation(num, data['selectedGenre'])
+    pic = get_picture(num, data['selectedGenre'])
     print(movies)
     admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
     admin.recs = movies
@@ -118,7 +123,7 @@ def getRecommendation(data):
         users.append(str(person.username) + "     " + str(person.recs))
     print("UPDATED RECS:")
     print(users)
-    socketio.emit('returnRec', {"message": movies})
+    socketio.emit('returnRec', {"message": movies, "messages":pic})
     
     
 

@@ -10,11 +10,22 @@ function Results(props){
   const { name, selectedGenre, socket } = props;
   const [infoList, setInfoList] = useState([]);
   const [watchVideo, setWatchVideo] = useState("");
+  const [videoPic, setVideoPic] = useState("");
   
-  if (infoList.length == 0){
-    socket.emit('returnDetails');
-    socket.emit('getRecommendation', { selectedGenre });
-  }
+  
+  socket.on('returningDetails', (data) => {
+    console.log('RETURNING DETAILS received');
+    console.log(data["message"]);
+    setInfoList(data['message']);
+  });
+  
+  socket.on('returnRec', (data) => {
+    console.log('Video received');
+    console.log(data["message"]);
+    console.log(data['messages']);
+    setWatchVideo(data['message']);
+    setVideoPic(data['messages']);
+  });
   
   var actionTitle = ['Fight Club', 'Inception', 'Avengers: Endgame', 'Fast and Furious', 'Wanda Vision'];
   var comedyTitle = ['The Big Bang Theory', 'Glee', 'Friend', 'The Office', 'Central Intelligence'];
@@ -30,23 +41,20 @@ function Results(props){
   }
   
   //useEffect(() => {
-  socket.on('returningDetails', (data) => {
-    console.log('RETURNING DETAILS received');
-    console.log(data["message"]);
-    setInfoList(data['message']);
-  });
-  socket.on('returnRec', (data) => {
-    console.log('Video received');
-    console.log(data["message"]);
-    setWatchVideo(data['message']);
-  });
+  
   //});
+  if (infoList.length == 0 && watchVideo.length == 0){
+    socket.emit('returnDetails');
+    socket.emit('getRecommendation', { selectedGenre });
+    
+  }
   
   return (
     <div>
       <h1> Results Page </h1>
       <h3> Winning Genre: { selectedGenre }</h3>
       <h3> Recommendation: { watchVideo }</h3>
+      <img src={videoPic} />
       
       <p>Time: {infoList[2]} </p>
       <br></br>
