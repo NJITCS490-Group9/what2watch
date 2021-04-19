@@ -5,8 +5,6 @@ from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from recommends import get_recommendation
-from recommends import get_picture
-from random import randint
 
 from dotenv import load_dotenv, find_dotenv
 
@@ -35,8 +33,6 @@ socketio = SocketIO(app,
                     cors_allowed_origins="*",
                     json=json,
                     manage_session=False)
-
-nameDateTimePlace = list()
 
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
@@ -83,52 +79,45 @@ def add_user(data):
             username.append(person.username)
         return username
     return None
-    
+
+
+nameDateTimePlace = []
 
 @socketio.on('details')
 def on_details(data):
     """Gets the name, date, time, place details"""
-    print("ON DETAILS")
-    print(data)
     if len(nameDateTimePlace) == 0:
-        nameDateTimePlace.append(data["name"])
+        nameDateTimePlace.append(data.name)
     elif len(nameDateTimePlace) == 1:
-        nameDateTimePlace.append(data["date"])
+        nameDateTimePlace.append(data.date)
     elif len(nameDateTimePlace) == 2:
-        nameDateTimePlace.append(data["time"])
+        nameDateTimePlace.append(data.time)
     elif len(nameDateTimePlace) == 3:
-        nameDateTimePlace.append(data['place'])
+        nameDateTimePlace.append(data.place)
+    print("on_DETILA")
     print(nameDateTimePlace)
     
-@socketio.on('returnDetails')
-def on_returnDetails():
-    """Returns name, date, time, place specifications"""
-    socketio.emit('returningDetails', {'message': nameDateTimePlace})
-
 
 @socketio.on('getRecommendation')
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
-    admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
-    num = randint(0,4)
-    movies = get_recommendation(num, data['selectedGenre'])
-    pic = get_picture(num, data['selectedGenre'])
-    while movies in admin.recs:
-        num = randint(0,4)
-        print(num)
-        movies = get_recommendation(num, data['selectedGenre'])
-        pic = get_picture(num, data['selectedGenre'])
-        print(movies)
-    
-    admin.recs = admin.recs+", "+movies
+    print("HERE!!")
+    print(data['selectedGenre'])
+    print("GET RECOMMENDATIONS")
+    movies = get_recommendation(data['selectedGenre'])
+    print(movies)
+    #db.session.query(models.Person).filter_by(username=data['name']).update({'recs': "HOLA"})
+    #db.session.commit()
+    """print(data['name'])
+    admin = db.session.query(models.Person).filter_by(username=data['name']).first()
+    admin.recs = movies
     db.session.commit()
     all_people = db.session.query(models.Person)
     users = []
     for person in all_people:
         users.append(str(person.username) + "     " + str(person.recs))
     print("UPDATED RECS:")
-    print(users)
-    socketio.emit('returnRec', {"message": movies, "messages":pic})
+    print(users)"""
     
     
 
@@ -136,7 +125,7 @@ def getRecommendation(data):
 def on_vote_start(data):
     socketio.emit('get_genres', data, broadcast=True, include_self=True)
     socketio.emit('vote_start', broadcast=True, include_self=True)
-    #socketio.emit('returningDetails', data)
+
 
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
