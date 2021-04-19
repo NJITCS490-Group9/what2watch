@@ -92,12 +92,12 @@ def on_details(data):
     print(data)
     if len(nameDateTimePlace) == 0:
         nameDateTimePlace.append(data["name"])
-    '''elif len(nameDateTimePlace) == 1:
-        nameDateTimePlace.append(data["date"])
+    elif len(nameDateTimePlace) == 1:
+        nameDateTimePlace.append(data["dates"])
     elif len(nameDateTimePlace) == 2:
-        nameDateTimePlace.append(data["time"])
+        nameDateTimePlace.append(data["times"])
     elif len(nameDateTimePlace) == 3:
-        nameDateTimePlace.append(data['place'])'''
+        nameDateTimePlace.append(data['places'])
     print(nameDateTimePlace)
     
 @socketio.on('returnDetails')
