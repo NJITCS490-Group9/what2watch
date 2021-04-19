@@ -9,11 +9,13 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     flex: 1 1 auto;
-	width: 100%;
-	margin: 10px;
+    flex-direction: column;
+	margin: 10px auto;
 	padding: 5px;
 	display: flex;
 	flex-wrap: wrap;
+	width: 30%;
+	background-color: #c9d1ed;
 }
 
 .genre_card_container
@@ -23,11 +25,13 @@
     max-width: 300px;
     margin: 10px;
     text-align: center;
+    height: 60%;
+    background-color: #eff2fa
     
 }
 
 img
 {
-    width: 25%;
+    width: 100%;
     
 }

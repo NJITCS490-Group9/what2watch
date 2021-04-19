@@ -32,9 +32,9 @@ export default function VotingScreen(props)
         console.log("WOW");
     }
     
-    function voteSubmit()
+    function voteSubmit() //to fix: for some reason this function doesn't run when submit button is clicked.
     {
-        alert("You have submitted your vote!");
+        alert("You have submitted your vote! Please wait for the results to be calculated.");
         
         //disable each of the select genre buttons so vote can't be changed after submitting
         const voteButtons = document.getElementsByClassName("genre_select_btn");
