@@ -8,7 +8,10 @@ import PropTypes from 'prop-types';
 function Results(props){
   
   const { name, selectedGenre, socket } = props;
-  //selectedGenre = "Action Movie";
+  const [infoList, setInfoList] = useState([]);
+  if (infoList.length == 0){
+    socket.emit('returnDetails');
+  }
   
   var actionTitle = ['Fight Club', 'Inception', 'Avengers: Endgame', 'Fast and Furious', 'Wanda Vision'];
   var comedyTitle = ['The Big Bang Theory', 'Glee', 'Friend', 'The Office', 'Central Intelligence'];
@@ -17,10 +20,20 @@ function Results(props){
   var romanceTitle = ['The Notebook', 'The Fault in Our Stars', 'Little Women', 'Titanic', 'Pride & Prejudice'];
 
   function recs(){
+    console.log({name}["name"]);
+    console.log({selectedGenre}["selectedGenre"]);
     socket.emit('getRecommendation', {selectedGenre});
     console.log("BUTTON CLICKED");
-    return;
   }
+  
+  //useEffect(() => {
+    socket.on('returningDetails', (data) => {
+      console.log('RETURNING DETAILS received');
+      console.log(data["message"]);
+      console.log(data['message'][1]);
+      setInfoList(data['message']);
+    });
+  //});
   
   return (
     <div>
@@ -28,13 +41,11 @@ function Results(props){
       <h3> Winning Genre: { selectedGenre }</h3>
       <button type="button" onClick={() => recs()}>Recommendations</button>
       
-      <p>
-      Time:
-      </p>
+      <p>Time: {infoList[2]} </p>
       <br></br>
-      <p>Date:</p>
+      <p>Date: {infoList[1]} </p>
       <br></br>
-      <p>Place:</p>
+      <p>Place: {infoList[3]} </p>
       
     </div>
   );

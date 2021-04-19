@@ -34,8 +34,6 @@ socketio = SocketIO(app,
                     json=json,
                     manage_session=False)
 
-nameDateTimePlace = list()
-
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
 def index(filename):
@@ -81,26 +79,24 @@ def add_user(data):
             username.append(person.username)
         return username
     return None
-    
+
+
+nameDateTimePlace = []
 
 @socketio.on('details')
 def on_details(data):
     """Gets the name, date, time, place details"""
     if len(nameDateTimePlace) == 0:
-        nameDateTimePlace.append(data["name"])
+        nameDateTimePlace.append(data.name)
     elif len(nameDateTimePlace) == 1:
-        nameDateTimePlace.append(data["date"])
+        nameDateTimePlace.append(data.date)
     elif len(nameDateTimePlace) == 2:
-        nameDateTimePlace.append(data["time"])
+        nameDateTimePlace.append(data.time)
     elif len(nameDateTimePlace) == 3:
-        nameDateTimePlace.append(data['place'])
+        nameDateTimePlace.append(data.place)
+    print("on_DETILA")
     print(nameDateTimePlace)
     
-@socketio.on('returnDetails')
-def on_returnDetails():
-    """Returns name, date, time, place specifications"""
-    socketio.emit('returningDetails', {'message': nameDateTimePlace})
-
 
 @socketio.on('getRecommendation')
 def getRecommendation(data):

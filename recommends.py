@@ -19,9 +19,9 @@ def get_recommendation(chosenGenre):
     
     response = requests.request("GET", url, headers=headers, params=querystring)
     
-    title = ""
+    title = []
     print(response.text)
-    if "You are not subscribed to this API." in response.text:
+    if "Invalid API key" in response.text:
         if chosenGenre == 'Action':
             title = ['Fight Club', 'Inception', 'Avengers: Endgame', 'Fast and Furious', 'Wanda Vision']
         elif chosenGenre == 'Comedy':
@@ -33,7 +33,7 @@ def get_recommendation(chosenGenre):
         else:
             title = ['The Notebook', 'The Fault in Our Stars', 'Little Women', 'Titanic', 'Pride & Prejudice']
         print(title)
-    num = randint(0,5)
+    num = randint(0,4)
     print(num)
     
     return title[num]

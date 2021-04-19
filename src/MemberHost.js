@@ -4,7 +4,7 @@ import Create from './Create';
 import Join from './Join';
 import PropTypes from 'prop-types';
 
-export function MemberHost(props){
+function MemberHost(props){
   
     const { name, socket } = props;
     const [showHost, setShowHost] = useState(true);

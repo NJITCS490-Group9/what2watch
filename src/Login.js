@@ -3,7 +3,7 @@ import './App.css';
 import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Logout from './Logout';
-import { MemberHost } from './MemberHost';
+import MemberHost from './MemberHost';
 import io from 'socket.io-client';
 
 const socket = io();
@@ -14,13 +14,16 @@ console.log(process.env);
 const clientId = process.env.REACT_APP_CLIENTID;
 
 function Login() {
+  
   const onSuccess = (res) => {
     console.log('Login Success: currentUser:', res.profileObj);
     alert(`Logged in successfully welcome ${res.profileObj.name}!!!`);
     console.log("HERRRRRRRRRRE");
     console.log(res.profileObj.name);
     const name = res.profileObj.name;
+    
     socket.emit('join', { name });
+    socket.emit('details', { name });
   };
 
   const onFailure = (res) => {

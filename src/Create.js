@@ -25,6 +25,16 @@ function Create(props) {
   ]);
   
   function onCreate() {
+    console.log("CREATE BUTTON CLICKED");
+    
+    console.log(document.getElementById("timeInput").value);
+    const date = document.getElementById("dateInput").value;
+    socket.emit("details",{ date });
+    const time = document.getElementById("timeInput").value;
+    socket.emit("details",{ time });
+    const place = document.getElementById("placeInput").value;
+    socket.emit("details",{ place });
+    
     setShowCreate((prevShowCreate) => {
       return !prevShowCreate;
     });
@@ -48,9 +58,9 @@ function Create(props) {
         <div className="create">
           <p> I want to watch a... <Dropdown /> </p>
           <p> Number of Guests : <input ref={guestNumRef} type="number" /> </p>
-          <p> Time  : <input ref={timeRef} type="time" /> </p>
-          <p> Date  : <input ref={dateRef} type="date" /> </p>
-          <p> Place : <input ref={placeRef} type="text" /> </p>
+          <p> Time  : <input id='timeInput' ref={timeRef} type="time" /> </p>
+          <p> Date  : <input id='dateInput' ref={dateRef} type="date" /> </p>
+          <p> Place : <input id='placeInput' ref={placeRef} type="text" /> </p>
           <p> Choose genre : </p>
           <ul>
             { genres.map( genre => (
