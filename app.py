@@ -80,7 +80,6 @@ def add_user(data):
         return username
     return None
 
-
 @socketio.on('getRecommendation')
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
@@ -91,8 +90,6 @@ def getRecommendation(data):
     print(movies)
     #person = db.session.query(models.Person).filter_by(username=)
     
-    
-
 @socketio.on('room_created')
 def on_vote_start(data):
     socketio.emit('get_genres', data, broadcast=True, include_self=True)

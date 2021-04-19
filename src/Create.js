@@ -29,21 +29,13 @@ function Create(props) {
     { id: 5, value: "Romance", isChecked: false}
   ]);
   
-  // function onConfirm() {
-  //   setGuestNum(guestNumRef);
-  //   setTime(timeRef);
-  //   setDate(dateRef);
-  //   setPlace(placeRef);
-  //   setHostPasscode(host_passcodeRef);
-  // }
-  
   function onCreate() {
     const guest = guestNumRef.current.value;
     const time = timeRef.current.value;
     const date = dateRef.current.value;
     const place = placeRef.current.value;
     const passcode = host_passcodeRef.current.value;
-    socket.emit('create', {
+    socket.emit('room_created', {
       'genres': genreList,
       'guests': guest,
       'time': time,

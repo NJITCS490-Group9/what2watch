@@ -1,8 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import {useState, useEffect} from 'react';
-import Results from './Results';
-import PropTypes from 'prop-types';
+import io from "socket.io-client";
 
 const genreCardData = {
     'Action': 'https://i.imgur.com/aHzf8e9.gif',
@@ -31,7 +30,7 @@ function VotingScreen(props)
         console.log("WOW");
     }
     
-    function voteSubmit() //to fix: for some reason this function doesn't run when submit button is clicked.
+    const voteSubmit = () =>
     {
         alert("You have submitted your vote! Please wait for the results to be calculated.");
         
