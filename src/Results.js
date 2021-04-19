@@ -9,8 +9,11 @@ function Results(props){
   
   const { name, selectedGenre, socket } = props;
   const [infoList, setInfoList] = useState([]);
+  const [watchVideo, setWatchVideo] = useState("");
+  
   if (infoList.length == 0){
     socket.emit('returnDetails');
+    socket.emit('getRecommendation', { selectedGenre });
   }
   
   var actionTitle = ['Fight Club', 'Inception', 'Avengers: Endgame', 'Fast and Furious', 'Wanda Vision'];
@@ -22,24 +25,28 @@ function Results(props){
   function recs(){
     console.log({name}["name"]);
     console.log({selectedGenre}["selectedGenre"]);
-    socket.emit('getRecommendation', {selectedGenre});
+    // socket.emit('getRecommendation', {selectedGenre});
     console.log("BUTTON CLICKED");
   }
   
   //useEffect(() => {
-    socket.on('returningDetails', (data) => {
-      console.log('RETURNING DETAILS received');
-      console.log(data["message"]);
-      console.log(data['message'][1]);
-      setInfoList(data['message']);
-    });
+  socket.on('returningDetails', (data) => {
+    console.log('RETURNING DETAILS received');
+    console.log(data["message"]);
+    setInfoList(data['message']);
+  });
+  socket.on('returnRec', (data) => {
+    console.log('Video received');
+    console.log(data["message"]);
+    setWatchVideo(data['message']);
+  });
   //});
   
   return (
     <div>
       <h1> Results Page </h1>
       <h3> Winning Genre: { selectedGenre }</h3>
-      <button type="button" onClick={() => recs()}>Recommendations</button>
+      <h3> Recommendation: { watchVideo }</h3>
       
       <p>Time: {infoList[2]} </p>
       <br></br>

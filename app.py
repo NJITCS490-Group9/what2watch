@@ -105,15 +105,11 @@ def on_returnDetails():
 @socketio.on('getRecommendation')
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
-    print("HERE!!")
     print(data['selectedGenre'])
     print("GET RECOMMENDATIONS")
     movies = get_recommendation(data['selectedGenre'])
     print(movies)
-    #db.session.query(models.Person).filter_by(username=data['name']).update({'recs': "HOLA"})
-    #db.session.commit()
-    """print(data['name'])
-    admin = db.session.query(models.Person).filter_by(username=data['name']).first()
+    admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
     admin.recs = movies
     db.session.commit()
     all_people = db.session.query(models.Person)
@@ -121,7 +117,8 @@ def getRecommendation(data):
     for person in all_people:
         users.append(str(person.username) + "     " + str(person.recs))
     print("UPDATED RECS:")
-    print(users)"""
+    print(users)
+    socketio.emit('returnRec', {"message": movies})
     
     
 
