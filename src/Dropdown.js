@@ -1,11 +1,26 @@
-import React from 'react';
+/* eslint-disable */
+import React, { useState } from 'react';
 
-const Dropdown = () => (
-    <select className="dropdown">
-      <option selected value="movies">Movie</option>
-      <option value="tvshows">TV Show</option>
-      <option value="both">Both</option>
+const Dropdown = () => {
+
+  const [options] = useState([
+    { value: "movies"},
+    { value: "tv show" },
+    { value: "both" }
+  ]);
+
+  return (
+    <select>
+      {options.map(option=> (
+        <option
+          key={option.value}
+          value={option.value}
+        >
+          {option.value}
+        </option>
+      ))}
     </select>
-);
+  );
+}
 
-export default Dropdown
+export default Dropdown;
