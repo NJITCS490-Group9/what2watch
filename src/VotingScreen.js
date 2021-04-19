@@ -46,23 +46,23 @@ function VotingScreen(props)
         {
             case "Action":
                 updateActionVotes(actionVotes + 1);
-                updateNumVotes(numVotes + 1)
+                updateNumVotes(numVotes + 1);
                 break;
             case "Comedy":
                 updateComedyVotes(comedyVotes + 1);
-                updateNumVotes(numVotes + 1)
+                updateNumVotes(numVotes + 1);
                 break;
             case "Fantasy":
                 updateFantasyVotes(fantasyVotes + 1);
-                updateNumVotes(numVotes + 1)
+                updateNumVotes(numVotes + 1);
                 break;
             case "Horror":
                 updateHorrorVotes(horrorVotes + 1);
-                updateNumVotes(numVotes + 1)
+                updateNumVotes(numVotes + 1);
                 break;
             case "Romance":
                 updateRomanceVotes(romanceVotes + 1);
-                updateNumVotes(numVotes + 1)
+                updateNumVotes(numVotes + 1);
                 break;
             default:
                 console.log("Uh oh"); //placeholder for when I can think of a better thing to do for default case
@@ -86,7 +86,7 @@ function VotingScreen(props)
             setGenres(data["genres"]);
             numberOfParticipants += data["numParticipants"];
         }, [])
-    })
+    });
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);

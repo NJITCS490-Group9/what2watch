@@ -88,6 +88,8 @@ def add_user(data):
 @socketio.on('details')
 def on_details(data):
     """Gets the name, date, time, place details"""
+    print("ON DETAILS")
+    print(data)
     if len(nameDateTimePlace) == 0:
         nameDateTimePlace.append(data["name"])
     elif len(nameDateTimePlace) == 1:
@@ -134,7 +136,7 @@ def getRecommendation(data):
 def on_vote_start(data):
     socketio.emit('get_genres', data, broadcast=True, include_self=True)
     socketio.emit('vote_start', broadcast=True, include_self=True)
-
+    #socketio.emit('returningDetails', data)
 
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
