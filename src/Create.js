@@ -1,12 +1,12 @@
 /* eslint-disable */
 import React, { useState, useRef } from 'react';
-import io from 'socket.io-client';
 import Dropdown from './Dropdown';
 import VotingScreen from './VotingScreen';
+import PropTypes from 'prop-types';
 
-const socket = io();
-
-function Create() {
+function Create(props) {
+  
+  const { name, socket } = props;
   const [showCreate, setShowCreate] = useState(true);
   const [genreList, setGenreList] = useState([]);
   const guestNumRef = useRef(null);
@@ -69,9 +69,14 @@ function Create() {
           <p> Room Passcode <input ref={host_passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
           <button type="submit" onClick={() => onCreate()}> Create Room </button>
         </div>
-      ) : <VotingScreen /> }
+      ) : <VotingScreen name={name} socket={socket} /> }
     </>
   );
 }
+
+Create.propTypes = {
+  name: PropTypes.string.isRequired,
+  socket: PropTypes.any.isRequired,
+};
 
 export default Create;

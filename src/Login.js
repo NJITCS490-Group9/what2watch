@@ -57,7 +57,7 @@ function Login() {
         ) : null }
         {isShown === false ? (
         <div>
-        <MemberHost />
+        <MemberHost name={name} socket={socket}/>
         </div>
         ) : null }
       </div>

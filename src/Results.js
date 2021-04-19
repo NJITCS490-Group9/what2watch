@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 function Results(props){
   
-  const { selectedGenre, socket } = props;
+  const { name, selectedGenre, socket } = props;
   //selectedGenre = "Action Movie";
   
   var actionTitle = ['Fight Club', 'Inception', 'Avengers: Endgame', 'Fast and Furious', 'Wanda Vision'];
@@ -41,6 +41,7 @@ function Results(props){
 }
 
 Results.propTypes = {
+  name: PropTypes.string.isRequired,
   selectedGenre: PropTypes.string.isRequired,
   socket: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
 };
