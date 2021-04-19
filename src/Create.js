@@ -9,11 +9,6 @@ const socket = io();
 function Create() {
   const [showCreate, setShowCreate] = useState(true);
   const [genreList, setGenreList] = useState([]);
-  const [guestNum, setGuestNum] = useState();
-  const [time, setTime] = useState();
-  const [date, setDate] = useState();
-  const [place, setPlace] = useState();
-  const [host_passcode, setHostPasscode] = useState();
   const guestNumRef = useRef(null);
   const timeRef = useRef(null);
   const dateRef = useRef(null);
@@ -30,17 +25,6 @@ function Create() {
   ]);
   
   function onCreate() {
-    setGuestNum(guestNumRef);
-    setTime(timeRef);
-    setDate(dateRef);
-    setPlace(placeRef);
-    setHostPasscode(host_passcodeRef);
-    socket.emit('create', {
-      'guests': guestNum,
-      'time': time,
-      'place': place,
-      'passcode': passcode,
-    })
     setShowCreate((prevShowCreate) => {
       return !prevShowCreate;
     });
