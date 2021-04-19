@@ -9,6 +9,11 @@ function Create(props) {
   const { name, socket } = props;
   const [showCreate, setShowCreate] = useState(true);
   const [genreList, setGenreList] = useState([]);
+  const [guestNum, setGuestNum] = useState();
+  const [time, setTime] = useState();
+  const [date, setDate] = useState();
+  const [place, setPlace] = useState();
+  const [host_passcode, setHostPasscode] = useState();
   const guestNumRef = useRef(null);
   const timeRef = useRef(null);
   const dateRef = useRef(null);
@@ -24,7 +29,28 @@ function Create(props) {
     { id: 5, value: "Romance", isChecked: false}
   ]);
   
+  // function onConfirm() {
+  //   setGuestNum(guestNumRef);
+  //   setTime(timeRef);
+  //   setDate(dateRef);
+  //   setPlace(placeRef);
+  //   setHostPasscode(host_passcodeRef);
+  // }
+  
   function onCreate() {
+    const guest = guestNumRef.current.value;
+    const time = timeRef.current.value;
+    const date = dateRef.current.value;
+    const place = placeRef.current.value;
+    const passcode = host_passcodeRef.current.value;
+    socket.emit('create', {
+      'genres': genreList,
+      'guests': guest,
+      'time': time,
+      'date': date,
+      'place': place,
+      'passcode': passcode
+    })
     setShowCreate((prevShowCreate) => {
       return !prevShowCreate;
     });
@@ -67,6 +93,7 @@ function Create(props) {
             )) }
           </ul>
           <p> Room Passcode <input ref={host_passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
+          <button type="submit" onConfirm={() => onCreate()}> Confirm </button>
           <button type="submit" onClick={() => onCreate()}> Create Room </button>
         </div>
       ) : <VotingScreen name={name} socket={socket} /> }
