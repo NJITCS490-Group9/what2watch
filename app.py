@@ -26,9 +26,10 @@ def on_connect():
     """on_connect"""
     print('User connected!')
 
-@socketio.on('test')
+@socketio.on('create')
 def test(data):
-    print("test")
+    print(data)
+    socketio.emit('get_genres', data)
 
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
