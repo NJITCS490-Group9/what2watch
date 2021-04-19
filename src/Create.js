@@ -9,17 +9,13 @@ function Create(props) {
   const { name, socket } = props;
   const [showCreate, setShowCreate] = useState(true);
   const [genreList, setGenreList] = useState([]);
-  const [guestNum, setGuestNum] = useState();
-  const [time, setTime] = useState();
-  const [date, setDate] = useState();
-  const [place, setPlace] = useState();
-  const [host_passcode, setHostPasscode] = useState();
+  const [option,setOption] = useState()
+  const mediaRef = useRef(null);
   const guestNumRef = useRef(null);
   const timeRef = useRef(null);
   const dateRef = useRef(null);
   const placeRef = useRef(null);
   const host_passcodeRef = useRef(null);
-
 
   const [genres, setGenres] = useState([
     { id: 1, value: "Comedy", isChecked: false },
@@ -36,6 +32,7 @@ function Create(props) {
     const place = placeRef.current.value;
     const passcode = host_passcodeRef.current.value;
     socket.emit('room_created', {
+      'media': option,
       'genres': genreList,
       'guests': guest,
       'time': time,
@@ -47,6 +44,10 @@ function Create(props) {
       return !prevShowCreate;
     });
   }
+  
+  function handleChange(e){
+    setOption(event.target.value)
+}
   
   function onHandleBoxClick(e) {
     const genre = e.target.value;
@@ -64,7 +65,12 @@ function Create(props) {
     <>
       { showCreate === true ? (
         <div className="create">
-          <p> I want to watch a... <Dropdown /> </p>
+          <p> I want to watch a... </p>
+          <select name='option' onChange={handleChange}>
+              <option value="movies">Movies</option>
+              <option value="tv_shows">TV Shows</option>
+              <option value="both">Both</option>
+          </select>
           <p> Number of Guests : <input ref={guestNumRef} type="number" /> </p>
           <p> Time  : <input ref={timeRef} type="time" /> </p>
           <p> Date  : <input ref={dateRef} type="date" /> </p>

@@ -2,6 +2,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import io from "socket.io-client";
+import PropTypes from 'prop-types';
 
 const genreCardData = {
     'Action': 'https://i.imgur.com/aHzf8e9.gif',
