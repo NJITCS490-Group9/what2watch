@@ -40,9 +40,9 @@ jobs:
         
       - name: Linting
         run: pylint **/*.py
-        
-      - name: Run mocked tests
-        run: python Tests/mocked.py
       
       - name: Run unmocked tests
         run: python Tests/unmocked.py
+        
+      - name: Run mocked tests
+        run: python Tests/mocked.py
