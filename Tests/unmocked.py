@@ -24,5 +24,5 @@ class UnmockedTests(unittest.TestCase):
         self.assertNotEqual(userlogin, "Couldn't find your Google Account")
         self.assertNotEqual(userlogin, "Wrong Password.")
 
-if name == "main":
+if __name__ == "__main__":
     unittest.main()
