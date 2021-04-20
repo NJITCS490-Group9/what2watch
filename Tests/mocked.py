@@ -1,4 +1,5 @@
 #pylint: disable=W0107
+#pylint: disable=C0413
 '''
     This file tests adding person to the database.
 '''
@@ -7,10 +8,10 @@ import unittest
 from unittest.mock import patch
 import os
 import sys
-from app import add_user
-import models
 # This lets you import from the parent directory (one level up)
 sys.path.append(os.path.abspath('../'))
+from app import add_user
+import models
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
