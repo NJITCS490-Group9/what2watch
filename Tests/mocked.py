@@ -1,17 +1,16 @@
+#pylint: disable=W0107
 '''
     This file tests adding person to the database.
 '''
 
 import unittest
-import unittest.mock as mock
 from unittest.mock import patch
 import os
 import sys
-
-# This lets you import from the parent directory (one level up)
-sys.path.append(os.path.abspath('../'))
 from app import add_user
 import models
+# This lets you import from the parent directory (one level up)
+sys.path.append(os.path.abspath('../'))
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -21,6 +20,7 @@ INITIAL_USERNAME = 'user1'
 
 
 class AddUserTestCase(unittest.TestCase):
+    '''class for testing the add user function of the database'''
     def setUp(self):
 
         self.success_test_params = [
@@ -51,19 +51,19 @@ class AddUserTestCase(unittest.TestCase):
                 KEY_EXPECTED: ['Charlie'],
             },
         ]
-
-        #persons = models.Person.query.all()
-        
         initial_person = models.Person(username=INITIAL_USERNAME, recs="Greys Anatomy")
         self.initial_db_mock = [initial_person]
 
     def mocked_db_session_add(self, username):
+        '''Function used to add to the database'''
         self.initial_db_mock.append(username)
 
     def mocked_db_session_commit(self):
+        '''Function used to commit to the database'''
         pass
 
     def mocked_person_query_all(self):
+        '''Function for querying (get) from database'''
         #if count == 1:
         #    self.initial_db_mock = [amy]
         #elif count == 2:
@@ -76,6 +76,7 @@ class AddUserTestCase(unittest.TestCase):
     #    return self.initial_db_mock.get
 
     def test_success(self):
+        '''Test if adding people to the database is successful'''
         for test in self.success_test_params:
             with patch('app.db.session.add', self.mocked_db_session_add):
                 with patch('app.db.session.commit',
@@ -91,6 +92,7 @@ class AddUserTestCase(unittest.TestCase):
                         self.assertEqual(actual_result[1], expected_result[1])
 
     def test_failure(self):
+        '''Testing to make sure these cases never occur when adding to database'''
         for test in self.failure_test_params:
             with patch('app.db.session.add', self.mocked_db_session_add):
                 with patch('app.db.session.commit',
@@ -107,3 +109,4 @@ class AddUserTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
