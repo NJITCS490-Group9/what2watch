@@ -44,5 +44,5 @@ jobs:
       - name: Run mocked tests
         run: python -m mocked
       
-      - name: Run mocked tests
+      - name: Run unmocked tests
         run: python -m Unmocked
