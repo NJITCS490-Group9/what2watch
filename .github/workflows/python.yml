@@ -42,7 +42,7 @@ jobs:
         run: pylint **/*.py
         
       - name: Run mocked tests
-        run: python mocked.py
+        run: python Tests/mocked.py
       
       - name: Run unmocked tests
-        run: python unmocked.py
+        run: python Tests/unmocked.py
