@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 export default function Trailer(props)
 {
     const [vidId, setVidId] = useState("");
+    const [showTrailer, setShowTrailer] = useState(true);
+    
     useEffect(() =>{
         let query= props.title + " " + "trailer";
         const q = 'key=' + process.env.REACT_APP_YOUTUBE_API_KEY + '&type=video&part=snippet&maxResults=1&q=' + query;
@@ -18,8 +20,25 @@ export default function Trailer(props)
     }, []);
     
     const vidsrc = "https://www.youtube.com/embed/" + vidId;
-    return(
-        <iframe width="560" height="315" src={ vidsrc } frameborder="0" allowfullscreen></iframe>
-    );
-
+    
+    function toggleTrailerVid() {
+        setShowTrailer((prevShow) => {
+            return !prevShow;
+        });
+  }
+    if(showTrailer){
+        return(
+            <div className="trailer-vid">
+                <button type="button" className="show-trailer-btn" onClick={ toggleTrailerVid } >Show/Hide Trailer</button>
+                <iframe width="560" height="315" src={ vidsrc } frameborder="0" allowfullscreen></iframe>
+            </div>
+        );
+    }
+    else{
+        return(
+            <div className="trailer-vid">
+                <button type="button" className="show-trailer-btn" onClick={ toggleTrailerVid } >Show/Hide Trailer</button>
+            </div>
+        );
+    }
 }
