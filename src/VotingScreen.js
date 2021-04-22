@@ -74,27 +74,31 @@ function VotingScreen(props)
     const genre_cards = [];
     
     for (let i = 0; i < genres.length; i++){
-        genre_cards.push(<GenreCard name={genres[i]} voteSelect={voteSelect} />);
+        genre_cards.push(<GenreCard name={ genres[i] } voteSelect={ voteSelect } key={ i }/>);
     }
     
     useEffect(() =>{
+        let isMounted = true;
         socket.on('get_genres', (data) => {
             console.log(data)
-            setGenres(data.genres);
-            numberOfParticipants += data.guests;
+            if(isMounted){
+                setGenres(data.genres);
+                numberOfParticipants += data.guests;
+            }
         })
-    })
+        return () => { isMounted = false };
+    }, []);
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
-        return <Results name={name} selectedGenre={selectedGenre} socket={socket} />;
+        return <Results name={ name } selectedGenre={ selectedGenre } socket={ socket } />;
     }
 
     return (
       <div className='voting_screen' >
         <h2> Movie Genre Vote </h2>
-        {genre_cards}
-        <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={voteSubmit} disabled> Submit Vote </button>
+        { genre_cards }
+        <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>
       
       </div>
     );

@@ -17,14 +17,14 @@ function App() {
   const [isVotingTime, setVotingTime] = useState(false);
  
   useEffect(() => {
-    
    socket.on('vote_start', (data) => {
      setVotingTime(true);
    }); 
   }, []);
+  
  
  if(isVotingTime){
-   return (<VotingScreen/>);
+   return (<VotingScreen name="" socket={ socket }/>);
  }
 
   return (
