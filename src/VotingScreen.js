@@ -67,7 +67,8 @@ function VotingScreen(props)
                 console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
         if(numVotes == numberOfParticipants){
-            socket.emit('vote_complete');
+            let voteTotals = [actionVotes, comedyVotes, fantasyVotes, romanceVotes, horrorVotes];
+            socket.emit('vote_complete', {'winningVote': Math.max(voteTotals)});
         }
     }
     
@@ -78,15 +79,11 @@ function VotingScreen(props)
     }
     
     useEffect(() =>{
-        let isMounted = true;
         socket.on('get_genres', (data) => {
             console.log(data)
-            if(isMounted){
-                setGenres(data.genres);
-                numberOfParticipants += data.guests;
-            }
+            setGenres(data.genres);
+            numberOfParticipants += data.guests;
         })
-        return () => { isMounted = false };
     }, []);
     
     if (selectedGenre.length != 0){
@@ -112,10 +109,10 @@ function GenreCard(props)
 {
     return (
         <div className='genre_card'>
-            <img src={genreCardData[props.name]} alt={props.name}/>
+            <img src={ genreCardData[props.name] } alt={ props.name }/>
             <div className='genre_card_container'>
                 <h4> {props.name} </h4>
-                <button type='button' className='genre_select_btn' value={props.name} onClick={props.voteSelect}>Select</button>
+                <button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
             </div>
         </div>
     );    
