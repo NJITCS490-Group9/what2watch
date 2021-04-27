@@ -5,25 +5,21 @@ import Trailer from './Trailer';
 
 
 function Results(props) {
-  const { name, selectedGenre, socket } = props;
+  const { selectedGenre, socket } = props;
   const [infoList, setInfoList] = useState([]);
   const [watchVideo, setWatchVideo] = useState('');
   const [videoPic, setVideoPic] = useState('');
   socket.on('returningDetails', (data) => {
     console.log('RETURNING DETAILS received');
     console.log(data.message);
-    //console.log(data);
-    //setInfoList(prevMessages => [...prevMessages, data.time]);
-    //setInfoList(prevMessages => [...prevMessages, data.date]);
-    ///setInfoList(prevMessages => [...prevMessages, data.place]);
+    // console.log(data);
+    // setInfoList(prevMessages => [...prevMessages, data.time]);
+    // setInfoList(prevMessages => [...prevMessages, data.date]);
+    // setInfoList(prevMessages => [...prevMessages, data.place]);
     setInfoList(data.message);
-    console.log("INFO LIST:");
+    console.log('INFO LIST:');
     console.log(infoList);
-    
   });
-  //if (infoList.length == 3){
-    
-  //}
   socket.on('returnRec', (data) => {
     console.log('Video received');
     console.log(data.message);
@@ -31,32 +27,30 @@ function Results(props) {
     setWatchVideo(data.message);
     setVideoPic(data.messages);
   });
-  if (watchVideo.length == 0){
+  if (watchVideo.length == 0) {
     socket.emit('returnDetails');
     socket.emit('getRecommendation', { selectedGenre });
-    
   }
-  
   return (
     <div>
       <h1> Results Page </h1>
       <h3> Winning Genre: { selectedGenre }</h3>
       <h3> Recommendation: { watchVideo }</h3>
       <img src={videoPic} />
+
       <Trailer title={ watchVideo }/>
+
       <p>Time: {infoList[2]} </p>
-      <br></br>
+      <br />
       <p>Date: {infoList[1]} </p>
-      <br></br>
+      <br />
       <p>Place: {infoList[3]} </p>
-      
-      
+
     </div>
   );
 }
 
 Results.propTypes = {
-  name: PropTypes.string.isRequired,
   selectedGenre: PropTypes.string.isRequired,
   socket: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
 };
