@@ -1,3 +1,4 @@
+"""A dummy docstring."""
 import os
 import sys
 import unittest
@@ -5,6 +6,7 @@ import unittest
 sys.path.append(os.path.abspath('../'))
 
 class UnmockedTests(unittest.TestCase):
+    """A dummy docstring."""
     def test_forlowercasename(self):
         """A dummy docstring."""
         self.assertTrue('anshul'.islower())

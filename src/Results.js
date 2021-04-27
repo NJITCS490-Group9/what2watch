@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Trailer from './Trailer';
+
 
 function Results(props) {
   const { selectedGenre, socket } = props;
@@ -35,11 +37,15 @@ function Results(props) {
       <h3> Winning Genre: { selectedGenre }</h3>
       <h3> Recommendation: { watchVideo }</h3>
       <img src={videoPic} />
+
+      <Trailer title={ watchVideo }/>
+
       <p>Time: {infoList[2]} </p>
       <br />
       <p>Date: {infoList[1]} </p>
       <br />
       <p>Place: {infoList[3]} </p>
+
     </div>
   );
 }

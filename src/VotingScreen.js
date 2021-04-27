@@ -67,14 +67,15 @@ function VotingScreen(props)
                 console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
         if(numVotes == numberOfParticipants){
-            socket.emit('vote_complete');
+            let voteTotals = [actionVotes, comedyVotes, fantasyVotes, romanceVotes, horrorVotes];
+            socket.emit('vote_complete', {'winningVote': Math.max(voteTotals)});
         }
     }
     
     const genre_cards = [];
     
     for (let i = 0; i < genres.length; i++){
-        genre_cards.push(<GenreCard name={genres[i]} voteSelect={voteSelect} />);
+        genre_cards.push(<GenreCard name={ genres[i] } voteSelect={ voteSelect } key={ i }/>);
     }
     
     useEffect(() =>{
@@ -83,18 +84,18 @@ function VotingScreen(props)
             setGenres(data.genres);
             numberOfParticipants += data.guests;
         })
-    })
+    }, []);
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
-        return <Results name={name} selectedGenre={selectedGenre} socket={socket} />;
+        return <Results name={ name } selectedGenre={ selectedGenre } socket={ socket } />;
     }
 
     return (
       <div className='voting_screen' >
         <h2> Movie Genre Vote </h2>
-        {genre_cards}
-        <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={voteSubmit} disabled> Submit Vote </button>
+        { genre_cards }
+        <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>
       
       </div>
     );
@@ -108,10 +109,10 @@ function GenreCard(props)
 {
     return (
         <div className='genre_card'>
-            <img src={genreCardData[props.name]} alt={props.name}/>
+            <img src={ genreCardData[props.name] } alt={ props.name }/>
             <div className='genre_card_container'>
                 <h4> {props.name} </h4>
-                <button type='button' className='genre_select_btn' value={props.name} onClick={props.voteSelect}>Select</button>
+                <button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
             </div>
         </div>
     );    

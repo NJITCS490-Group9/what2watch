@@ -1,13 +1,14 @@
 import os
-from random import randint
 import requests
-from flask import Flask, send_from_directory, json, session
+from flask import Flask, render_template, send_from_directory, json, session
 from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv, find_dotenv
 from recommends import get_recommendation
 from recommends import get_picture
+from random import randint
+
+from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())  # This is to load your env variables from .env
 
@@ -47,6 +48,7 @@ def index(filename):
 def on_connect():
     """For testing purposes. To see if socket.io is working"""
     print('User connected!')
+    
 
 @socketio.on('join')
 def on_join(data):
@@ -58,7 +60,7 @@ def on_join(data):
     for person in all_people:
         users.append(person.username)
     if str(data["name"]) not in users:
-        add_user(data["name"])
+        username = add_user(data["name"])
     print(users)
 
 
@@ -81,6 +83,7 @@ def add_user(data):
             username.append(person.username)
         return username
     return None
+    
 
 @socketio.on('details')
 def on_details(data):
@@ -96,6 +99,7 @@ def on_details(data):
     elif len(nameDateTimePlace) == 3:
         nameDateTimePlace.append(data['places'])
     print(nameDateTimePlace)
+    
 @socketio.on('returnDetails')
 def on_returnDetails():
     """Returns name, date, time, place specifications"""
@@ -106,15 +110,16 @@ def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("GET RECOMMENDED MOVIE!!!!!!")
     admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
-    num = randint(0, 4)
+    num = randint(0,4)
     movies = get_recommendation(num, data['selectedGenre'])
     pic = get_picture(num, data['selectedGenre'])
     while movies in admin.recs:
-        num = randint(0, 4)
+        num = randint(0,4)
         print(num)
         movies = get_recommendation(num, data['selectedGenre'])
         pic = get_picture(num, data['selectedGenre'])
         print(movies)
+    
     admin.recs = admin.recs+", "+movies
     db.session.commit()
     all_people = db.session.query(models.Person)
@@ -124,6 +129,7 @@ def getRecommendation(data):
     print("UPDATED RECS:")
     print(users)
     socketio.emit('returnRec', {"message": movies, "messages":pic})
+    
 @socketio.on('room_created')
 def on_vote_start(data):
     print(data)
