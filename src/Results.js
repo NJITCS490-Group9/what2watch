@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Trailer from './Trailer';
-
+import ChatApp from './ChatApp';
 
 function Results(props) {
   const { selectedGenre, socket } = props;
@@ -45,7 +45,9 @@ function Results(props) {
       <p>Date: {infoList[1]} </p>
       <br />
       <p>Place: {infoList[3]} </p>
-
+      
+      <ChatApp />
+      
     </div>
   );
 }

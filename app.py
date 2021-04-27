@@ -61,6 +61,12 @@ def on_join(data):
         add_user(data["name"])
     print(users)
 
+@socketio.on('chatapp')
+def on_chat(data):
+    """A dummy docstring."""
+    print(str(data))
+    socketio.emit('chatapp', data, broadcast=True, include_self=False)
+
 
 def add_user(data):
     """What on_join calls to add new user to database upon login"""

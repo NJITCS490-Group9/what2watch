@@ -1,3 +1,33 @@
+.frontpage{
+  background: white;
+  border: 20px solid black;
+  background: #00FFFF;
+}
+
+.text{
+  size: 20px;
+  background: #00FFFF;
+}
+.ChatApp {
+  width: 300px;
+  height: 300px;
+  margin-top: 20px;
+  border: 20px solid black;
+  background: #00FFFF;
+}
+
+.textbox {
+  background: #00FFFF;
+  font-family: Lucida Handwriting;
+}
+
+.logo {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  margin: auto;
+}
+
 .App {
   text-align: center;
 }

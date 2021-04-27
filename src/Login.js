@@ -43,6 +43,12 @@ function Login() {
     <div>
     {isShown === true ? (
       <div>
+      <div class= 'frontpage'>
+      <img class = 'logo' src = 'https://media.discordapp.net/attachments/809594167730372609/833507871613911081/304CC202-6BD3-4F4B-A028-8817372A6D62.PNG' />
+      <h1 class = 'text'> Having trouble what you and your friends want to watch? </h1>
+      <h2 class = 'text'> Let us pick out what you are going to watch tonight! </h2>
+      <h3 class = 'text'> App by: Krupesh Ray, Katherine Thai, Ian Gabrielle Gojo Cruz, and Jessica Bakare! </h3>
+      </div>
       <GoogleLogin
         clientId={clientId}
         buttonText="Login"
