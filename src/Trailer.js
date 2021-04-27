@@ -13,7 +13,7 @@ export default function Trailer(props)
         const params = new URLSearchParams(q);//serializes parameters for url
         const apiRequestURL = 'https://www.googleapis.com/youtube/v3/search?' + params.toString();
         fetch(apiRequestURL).then(response => response.json()).then(data =>{
-            console.log(data)
+            //console.log(data)
             setVidId(data.items[0].id.videoId);
         });
         
@@ -30,7 +30,7 @@ export default function Trailer(props)
         return(
             <div className="trailer-vid">
                 <button type="button" className="show-trailer-btn" onClick={ toggleTrailerVid } >Show/Hide Trailer</button>
-                <iframe width="560" height="315" src={ vidsrc } frameborder="0" allowfullscreen></iframe>
+                <iframe width="560" height="315" src={ vidsrc } frameborder="0" allowFullScreen></iframe>
             </div>
         );
     }
@@ -42,3 +42,7 @@ export default function Trailer(props)
         );
     }
 }
+
+Trailer.propTypes = {
+    title: PropTypes.string.isRequired,
+};

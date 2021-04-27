@@ -73,18 +73,32 @@ function VotingScreen(props)
     }
     
     const genre_cards = [];
+    const genres_fr = [];
     
-    for (let i = 0; i < genres.length; i++){
-        genre_cards.push(<GenreCard name={ genres[i] } voteSelect={ voteSelect } key={ i }/>);
-    }
     
+    /*
     useEffect(() =>{
-        socket.on('get_genres', (data) => {
-            console.log(data)
+        socket.on('vote_start', (data) => {
+            //console.log(data.genres);
             setGenres(data.genres);
+            for (let i = 0; i < data.genres.length; i++)
+            {
+                genres_fr.push(data.genres[i]);
+                console.log("genre_fr:");
+                console.log(genres_fr);
+            }
+            //console.log("genres after setGenres:");
+            //console.log(genres);
             numberOfParticipants += data.guests;
-        })
+        });
     }, []);
+    
+    console.log("genres_fr after useeffect:");
+    console.log(genres_fr);
+    */
+    for (let i = 0; i < props.genres.length; i++){
+        genre_cards.push(<GenreCard name={ props.genres[i] } voteSelect={ voteSelect } key={ i }/>);
+    }
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
@@ -103,6 +117,7 @@ function VotingScreen(props)
 VotingScreen.propTypes = {
     name: PropTypes.string.isRequired,
     socket: PropTypes.any.isRequired,
+    genres: PropTypes.any.isRequired,
 };
 
 function GenreCard(props)

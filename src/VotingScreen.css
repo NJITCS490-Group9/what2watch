@@ -1,29 +1,34 @@
 .voting_screen
 {
-    display: grid;
+    display: flex; 
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
 }
-
 
 .genre_card
 {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    flex: 1 1 auto;
+    flex: 1 1 150px;
     flex-direction: column;
 	margin: 10px auto;
 	padding: 5px;
 	display: flex;
 	flex-wrap: wrap;
-	width: 30%;
+	width: 50%;
 	background-color: #c9d1ed;
+	text-align: center;
 }
 
 .genre_card_container
 {
     flex: 0 0 195px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: 10px;
+    width: 95%;
+    margin: 10px auto;
     text-align: center;
     height: 60%;
     background-color: #eff2fa

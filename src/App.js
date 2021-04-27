@@ -15,16 +15,19 @@ const socket = io();
 function App() {
   
   const [isVotingTime, setVotingTime] = useState(false);
+  const [hostGenres, setHostGenres] = useState(['Action', 'Comedy', 'Fantasy', 'Horror', 'Romance']);
  
-  useEffect(() => {
+ useEffect(() => {
    socket.on('vote_start', (data) => {
      setVotingTime(true);
+     setHostGenres(data.genres);
    }); 
   }, []);
   
- 
+ console.log("hostGenres:");
+ console.log(hostGenres);
  if(isVotingTime){
-   return (<VotingScreen name="" socket={ socket }/>);
+   return (<VotingScreen name="" socket={ socket } genres={ hostGenres } />);
  }
 
   return (
