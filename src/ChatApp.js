@@ -37,12 +37,12 @@ function ChatApp() {
 
   return (
     <div>
-    <button class="button" onClick={() => onShowHide()}>Chat with you friends!{" "}</button>
+    <button class="button" onClick={() => onShowHide()}>Chat with your friends!{" "}</button>
     {isShown === false ? (
     <div class="ChatApp">
     <div> {messages.map((item, index) => (<Item key={index} name={item}/>))}</div>
     <input class="textbox" ref={inputRef} type="text" class='textbox' />
-    <button class="button" onClick={() => onClickButton()} class='textbox'>Send</button>
+    <button onClick={() => onClickButton()} >Send</button>
     </div>
     ) : null }
     </div>
