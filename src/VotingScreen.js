@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Results from './Results';
 import PropTypes from 'prop-types';
+import ChatApp from './ChatApp';
+
 
 const socket = io();
 
@@ -17,28 +19,12 @@ const genreCardData = {
 
 function VotingScreen(props)
 {
-    const { name, genres } = props;
-    // const [genres, setGenres] = useState([]);
-    const [time, setTime] = useState();
-    const [date, setDate] = useState();
-    const [place, setPlace] = useState();
+    const { name } = props;
+    const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
     const [selectedGenre, setSelectedGenre] = useState("");
     const [hasSelected, toggleSelected] = useState(false);
     let numberOfParticipants = 1;
     const [numVotes, updateNumVotes] = useState(0);
-    
-    // socket.on('get_genres', (data) => {
-    //     console.log(data)
-    //     const arr = data.genres;
-    //     setGenres(arr);
-    //     const d_time = data.time;
-    //     setTime(d_time);
-    //     const d_date = data.date;
-    //     setDate(d_date);
-    //     const d_place = data.place;
-    //     setPlace(d_place);
-    //     numberOfParticipants += data.guests;
-    // })
     
     const voteSelect = (e) =>{
         console.log('NOTHINGGGGG');
@@ -83,31 +69,36 @@ function VotingScreen(props)
                 console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
         if(numVotes == numberOfParticipants){
-            socket.emit('vote_complete');
+            let voteTotals = [actionVotes, comedyVotes, fantasyVotes, romanceVotes, horrorVotes];
+            socket.emit('vote_complete', {'winningVote': Math.max(voteTotals)});
         }
     }
     
     const genre_cards = [];
     
-    for (let i = 0; i < {genres}.length; i++){
-        genre_cards.push(<GenreCard name={genres[i]} voteSelect={voteSelect} />);
+    for (let i = 0; i < genres.length; i++){
+        genre_cards.push(<GenreCard name={ genres[i] } voteSelect={ voteSelect } key={ i }/>);
     }
     
+    useEffect(() =>{
+        socket.on('get_genres', (data) => {
+            console.log(data)
+            setGenres(data.genres);
+            numberOfParticipants += data.guests;
+        })
+    }, []);
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
-        console.log(time);
-        console.log(date);
-        console.log(place);
-        return <Results name={name} selectedGenre={selectedGenre} socket={socket} />;
+        return <Results name={ name } selectedGenre={ selectedGenre } socket={ socket } />;
     }
 
     return (
       <div className='voting_screen' >
-        <h1> Genres: {genres} </h1>
         <h2> Movie Genre Vote </h2>
-        {genre_cards}
-        <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={voteSubmit} disabled> Submit Vote </button>
+        <ChatApp />
+        { genre_cards }
+        <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>
       
       </div>
     );
@@ -115,17 +106,16 @@ function VotingScreen(props)
 VotingScreen.propTypes = {
     name: PropTypes.string.isRequired,
     socket: PropTypes.any.isRequired,
-    genres: PropTypes.any.isRequired
 };
 
 function GenreCard(props)
 {
     return (
         <div className='genre_card'>
-            <img src={genreCardData[props.name]} alt={props.name}/>
+            <img src={ genreCardData[props.name] } alt={ props.name }/>
             <div className='genre_card_container'>
                 <h4> {props.name} </h4>
-                <button type='button' className='genre_select_btn' value={props.name} onClick={props.voteSelect}>Select</button>
+                <button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
             </div>
         </div>
     );    

@@ -9,6 +9,7 @@ import { MemberHost } from './MemberHost';
 import VotingScreen from './VotingScreen';
 import './VotingScreen.css';
 import Results from './Results';
+import ChatApp from './ChatApp';
 
 const socket = io();
 
@@ -17,22 +18,23 @@ function App() {
   const [isVotingTime, setVotingTime] = useState(false);
  
   useEffect(() => {
-    
    socket.on('vote_start', (data) => {
      setVotingTime(true);
    }); 
   }, []);
+  
  
  if(isVotingTime){
-   return (<VotingScreen/>);
+   return (
+        <div>
+       <VotingScreen name="" socket={ socket }/>
+        </div>
+       );
  }
 
   return (
     <div>
-        <h1> Welcome to What2Watch </h1>
-        <Navbar>
         <Login />
-        </Navbar>
     </div>
 
   );

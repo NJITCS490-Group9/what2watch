@@ -40,15 +40,15 @@ function Create(props) {
       'place': place,
       'passcode': passcode
     })
-    /*console.log("CREATE BUTTON CLICKED");
+    console.log("CREATE BUTTON CLICKED");
     
     console.log(document.getElementById("timeInput").value);
-    const date = document.getElementById("dateInput").value;
-    socket.emit("details",{ date });
-    const time = document.getElementById("timeInput").value;
-    socket.emit("details",{ time });
-    const place = document.getElementById("placeInput").value;
-    socket.emit("details",{ place });*/
+    const dates = document.getElementById("dateInput").value;
+    socket.emit("details",{ dates });
+    const times = document.getElementById("timeInput").value;
+    socket.emit("details",{ times });
+    const places = document.getElementById("placeInput").value;
+    socket.emit("details",{ places });
     
     setShowCreate((prevShowCreate) => {
       return !prevShowCreate;
@@ -100,12 +100,11 @@ function Create(props) {
               </li>
             )) }
           </ul>
-          <p> {genreList} </p>
           <p> Room Passcode <input ref={host_passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
           <button type="submit" onConfirm={() => onCreate()}> Confirm </button>
           <button type="submit" onClick={() => onCreate()}> Create Room </button>
         </div>
-      ) : <VotingScreen name={name} socket={socket} genres={genreList}/> }
+      ) : <VotingScreen name={name} socket={socket} /> }
     </>
   );
 }
