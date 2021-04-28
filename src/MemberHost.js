@@ -34,10 +34,10 @@ function MemberHost(props){
     return (
     <>
         { showHost === true ? (
-            <div>
+            <div class= 'memberhostpage'>
             <p> I would like to: </p>
-            <button type="submit" onClick={() => onHost()}>Host</button>
-            <button type="submit" onClick={() => onJoin()}>Join</button>
+            <button class= 'memberbutton' type="submit" onClick={() => onHost()}>Host</button>
+            <button class= 'memberbutton' type="submit" onClick={() => onJoin()}>Join</button>
             </div>
         ) : null }
         { showCreate === false ? ( null ) : <Create name={name} socket={socket} /> }
