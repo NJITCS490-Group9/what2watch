@@ -100,10 +100,10 @@ def on_details(data):
         nameDateTimePlace.append(data['place'])'''
     print(nameDateTimePlace)
     
-@socketio.on('returnDetails')
-def on_returnDetails():
-    """Returns name, date, time, place specifications"""
-    socketio.emit('returningDetails', {'message': nameDateTimePlace})
+# @socketio.on('returnDetails')
+# def on_returnDetails():
+#     """Returns name, date, time, place specifications"""
+#     socketio.emit('returningDetails', {'message': nameDateTimePlace})
 
 @socketio.on('getRecommendation')
 def getRecommendation(data):
@@ -135,7 +135,7 @@ def on_vote_start(data):
     print(data)
     socketio.emit('get_genres', data)
     socketio.emit('vote_start', broadcast=True, include_self=True)
-    socketio.emit('returningDetails', data)
+    socketio.emit('details', data)
 
 
 if __name__ == "__main__":

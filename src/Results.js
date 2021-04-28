@@ -1,38 +1,36 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import io from "socket.io-client";
+
+const socket = io();
 
 function Results(props) {
-  const { name, selectedGenre, socket } = props;
-  const [infoList, setInfoList] = useState([]);
+  const { name, selectedGenre, time, place } = props;
+  // const [infoList, setInfoList] = useState([]);
   const [watchVideo, setWatchVideo] = useState('');
   const [videoPic, setVideoPic] = useState('');
-  socket.on('returningDetails', (data) => {
+  // const [time,setTime] = useState();
+  const [date,setDate] = useState();
+  
+  
+  socket.on('details', (data) => {
     console.log('RETURNING DETAILS received');
-    //console.log(data.message);
     console.log(data);
-    setInfoList(prevMessages => [...prevMessages, data.time]);
-    setInfoList(prevMessages => [...prevMessages, data.date]);
-    setInfoList(prevMessages => [...prevMessages, data.place]);
-    console.log("INFO LIST:");
-    console.log(infoList);
-    //setInfoList(data.message);
   });
-  //if (infoList.length == 3){
+
+  // socket.on('returnRec', (data) => {
+  //   console.log('Video received');
+  //   console.log(data.message);
+  //   console.log(data.messages);
+  //   setWatchVideo(data.message);
+  //   setVideoPic(data.messages);
+  // });
+  // if (watchVideo.length == 0){
+  //   socket.emit('returnDetails');
+  //   socket.emit('getRecommendation', { selectedGenre });
     
-  //}
-  socket.on('returnRec', (data) => {
-    console.log('Video received');
-    console.log(data.message);
-    console.log(data.messages);
-    setWatchVideo(data.message);
-    setVideoPic(data.messages);
-  });
-  if (watchVideo.length == 0){
-    socket.emit('returnDetails');
-    socket.emit('getRecommendation', { selectedGenre });
-    
-  }
+  // }
   
   return (
     <div>
@@ -41,11 +39,11 @@ function Results(props) {
       <h3> Recommendation: { watchVideo }</h3>
       <img src={videoPic} />
       
-      <p>Time: {infoList[2]} </p>
+      <p>Time: {time} </p>
       <br></br>
-      <p>Date: {infoList[1]} </p>
+      <p>Date: {date} </p>
       <br></br>
-      <p>Place: {infoList[3]} </p>
+      <p>Place: {place} </p>
       
     </div>
   );
@@ -54,6 +52,8 @@ function Results(props) {
 Results.propTypes = {
   name: PropTypes.string.isRequired,
   selectedGenre: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
+  place: PropTypes.string.isRequired,
   socket: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 

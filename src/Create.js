@@ -100,11 +100,12 @@ function Create(props) {
               </li>
             )) }
           </ul>
+          <p> {genreList} </p>
           <p> Room Passcode <input ref={host_passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
           <button type="submit" onConfirm={() => onCreate()}> Confirm </button>
           <button type="submit" onClick={() => onCreate()}> Create Room </button>
         </div>
-      ) : <VotingScreen name={name} socket={socket} /> }
+      ) : <VotingScreen name={name} socket={socket} genres={genreList}/> }
     </>
   );
 }
