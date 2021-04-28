@@ -61,6 +61,12 @@ def on_join(data):
         add_user(data["name"])
     print(users)
 
+@socketio.on('chatapp')
+def on_chat(data):
+    """A dummy docstring."""
+    print(str(data))
+    socketio.emit('chatapp', data, broadcast=True, include_self=False)
+
 
 def add_user(data):
     """What on_join calls to add new user to database upon login"""
@@ -127,8 +133,8 @@ def getRecommendation(data):
 @socketio.on('room_created')
 def on_vote_start(data):
     print(data)
+    socketio.emit('vote_start', data, broadcast=True, include_self=True)
     socketio.emit('get_genres', data)
-    socketio.emit('vote_start', broadcast=True, include_self=True)
     socketio.emit('returningDetails', data)
     
 @socketio.on('vote_complete')

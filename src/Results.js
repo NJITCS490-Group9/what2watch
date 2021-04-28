@@ -28,7 +28,7 @@ function Results(props) {
     setVideoPic(data.messages);
   });
   if (watchVideo.length == 0) {
-    socket.emit('returnDetails');
+    //socket.emit('returnDetails');
     socket.emit('getRecommendation', { selectedGenre });
   }
   return (
