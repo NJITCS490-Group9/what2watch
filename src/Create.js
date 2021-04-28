@@ -3,13 +3,16 @@ import React, { useState, useRef } from 'react';
 import Dropdown from './Dropdown';
 import VotingScreen from './VotingScreen';
 import PropTypes from 'prop-types';
+import './Create.css';
 
 function Create(props) {
   
   const { name, socket } = props;
   const [showCreate, setShowCreate] = useState(true);
+  const [showPass, setShowPass] = useState(true);
   const [genreList, setGenreList] = useState([]);
   const [option,setOption] = useState()
+  const [pass, setPass] = useState();
   const mediaRef = useRef(null);
   const guestNumRef = useRef(null);
   const timeRef = useRef(null);
@@ -31,6 +34,7 @@ function Create(props) {
     const date = dateRef.current.value;
     const place = placeRef.current.value;
     const passcode = host_passcodeRef.current.value;
+    setPasscode(passcode);
     socket.emit('room_created', {
       'media': option,
       'genres': genreList,
@@ -57,55 +61,89 @@ function Create(props) {
   
   function handleChange(e){
     setOption(event.target.value)
-}
+  }
   
   function onHandleBoxClick(e) {
+    console.log(e.target.value);
+    const newGenres = [...genres]
+    const update = {
+      id: e.target.id,
+      value: e.target.value,
+      isChecked: !e.target.isChecked
+    }
+    newGenres[e.target.id-1] = update;
+    setGenres(newGenres);
     const genre = e.target.value;
-    if (!genreList.includes(e.target.value)) {
+    if (!genreList.includes(genre)) {
       setGenreList(prevList => [...prevList, genre])
     } else {
-      let index = genreList.indexOf(e.target.value)
+      let index = genreList.indexOf(genre)
       delete genreList[index]
     }
     console.log(genreList)
   }
+  
+  function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  
+  function onGenerate() {
+    const pw = randomIntFromInterval(1000, 9999);
+    setPass((prevPass) => {
+      return pw;
+    });
+    setShowPass((prevShowPass) => {
+      return !prevShowPass;
+    });
+  }
 
   
   return (
-    <>
+    <div className="container">
       { showCreate === true ? (
-        <div className="create">
-          <p> I want to watch a... </p>
-          <select name='option' onChange={handleChange}>
-              <option value="movies">Movies</option>
-              <option value="tv_shows">TV Shows</option>
-              <option value="both">Both</option>
-          </select>
-          <p> Number of Guests : <input ref={guestNumRef} type="number" /> </p>
-          <p> Time  : <input id='timeInput' ref={timeRef} type="time" /> </p>
-          <p> Date  : <input id='dateInput' ref={dateRef} type="date" /> </p>
-          <p> Place : <input id='placeInput' ref={placeRef} type="text" /> </p>
-          <p> Choose genre : </p>
-          <ul>
-            { genres.map( genre => (
-              <li>
-                <input 
-                  type="checkbox"
-                  key={genre.id}
-                  value={genre.value}
-                  checked={genre.isChecked}
-                  onClick={(e) => onHandleBoxClick(e)}
-                />
-                {genre.value}
-              </li>
-            )) }
-          </ul>
-          <p> Room Passcode <input ref={host_passcodeRef} type="text" /> <button type="submit"> Generate </button> </p> 
-          <button type="submit" onConfirm={() => onCreate()}> Confirm </button>
-          <button type="submit" onClick={() => onCreate()}> Create Room </button>
+        <div className="flex-container">
+          <div className="flex-banner">
+            <img className='logo' src = 'https://live-production.wcms.abc-cdn.net.au/93f8de40ce83546b5f56b2821588aa27?impolicy=wcms_crop_resize&cropH=671&cropW=1192&xPos=146&yPos=0&width=862&height=485' />
+            <img className='logo' src = 'https://static1.srcdn.com/wordpress/wp-content/uploads/2020/12/Streaming-Service-Promo-Image.jpg?q=50&fit=crop&w=960&h=500&dpr=1.5' />
+
+          </div>
+          <div className="flex-child">
+            <p> I want to watch a. . .  
+            <select name='option' onChange={handleChange}>
+                <option value="movies">Movie</option>
+                <option value="tv_shows">TV Show</option>
+                <option value="both">Both</option>
+            </select>
+            </p>
+            <p> Number of Guests : <input ref={guestNumRef} type="number" /> </p>
+            <p> Time  : <input id='timeInput' ref={timeRef} type="time" /> </p>
+            <p> Date  : <input id='dateInput' ref={dateRef} type="date" /> </p>
+            <p> Place : <input id='placeInput' ref={placeRef} type="text" /> </p>
+            <p> Choose genre : </p>
+            <ul>
+              { genres.map( genre => (
+                <ul>
+                  <input 
+                    type="checkbox"
+                    id={genre.id}
+                    value={genre.value}
+                    checked={genre.isChecked}
+                    onClick={(e) => onHandleBoxClick(e)}
+                  />
+                  {genre.value}
+                </ul>
+              )) }
+            </ul>
+            <p>
+              { showPass === true ? ( <p> Passcode: <input ref={host_passcodeRef} type="text" /> <button type="submit" onClick={() => onGenerate()}> Generate </button> </p> ) : <p> Passcode: { pass } </p> }
+            </p>
+            <div className="button">
+            <button type="submit" onClick={() => onCreate()}> Create Room </button>
+            </div>
+          </div>
         </div>
       ) : <VotingScreen name={name} socket={socket} /> }
-    </>
+    </div>
   );
 }
 
