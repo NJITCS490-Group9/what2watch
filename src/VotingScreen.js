@@ -97,10 +97,9 @@ function VotingScreen(props)
     return (
       <div className='voting_screen' >
         <h2> Movie Genre Vote </h2>
-        <ChatApp />
+        <ChatApp/>
         { genre_cards }
         <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>
-      
       </div>
     );
 }

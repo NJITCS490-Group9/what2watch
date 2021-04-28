@@ -90,3 +90,10 @@
   display: flex;
   justify-content: flex-end;
 }
+
+body
+{
+  background: url('https://www.promenadetemecula.com/content/dam/rw-2/images/mall-images/mall-features/movies-mobile.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}

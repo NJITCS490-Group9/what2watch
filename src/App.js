@@ -10,6 +10,7 @@ import VotingScreen from './VotingScreen';
 import './VotingScreen.css';
 import Results from './Results';
 import ChatApp from './ChatApp';
+import './Trailer.css';
 
 const socket = io();
 

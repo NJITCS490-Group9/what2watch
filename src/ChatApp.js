@@ -37,7 +37,7 @@ function ChatApp() {
 
   return (
     <div>
-    <button class="button" onClick={() => onShowHide()}>Chat with you friends!{" "}</button>
+    <button class="button" onClick={() => onShowHide()}>Chat with your friends!{" "}</button>
     {isShown === false ? (
     <div class="ChatApp">
     <div> {messages.map((item, index) => (<Item key={index} name={item}/>))}</div>
