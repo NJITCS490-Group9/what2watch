@@ -9,30 +9,36 @@ import { MemberHost } from './MemberHost';
 import VotingScreen from './VotingScreen';
 import './VotingScreen.css';
 import Results from './Results';
+import ChatApp from './ChatApp';
+import './Trailer.css';
 
 const socket = io();
 
 function App() {
   
   const [isVotingTime, setVotingTime] = useState(false);
+  const [hostGenres, setHostGenres] = useState(['Action', 'Comedy', 'Fantasy', 'Horror', 'Romance']);
  
-  useEffect(() => {
+ useEffect(() => {
    socket.on('vote_start', (data) => {
      setVotingTime(true);
+     setHostGenres(data.genres);
    }); 
   }, []);
   
- 
+ console.log("hostGenres:");
+ console.log(hostGenres);
  if(isVotingTime){
-   return (<VotingScreen name="" socket={ socket }/>);
+   return (
+        <div>
+       <VotingScreen name="" socket={ socket }/>
+        </div>
+       );
  }
 
   return (
     <div>
-        <h1> Welcome to What2Watch </h1>
-        <Navbar>
         <Login />
-        </Navbar>
     </div>
 
   );

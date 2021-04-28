@@ -34,10 +34,11 @@ function MemberHost(props){
     return (
     <>
         { showHost === true ? (
-            <div>
+            <div class= 'memberhostpage'>
+            <img class = 'logo' src = 'https://media.discordapp.net/attachments/809594167730372609/837043406969503744/161963692198495630.png?width=468&height=468' />
             <p> I would like to: </p>
-            <button type="submit" onClick={() => onHost()}>Host</button>
-            <button type="submit" onClick={() => onJoin()}>Join</button>
+            <button class= 'memberbutton' type="submit" onClick={() => onHost()}>Host</button>
+            <button class= 'memberbutton' type="submit" onClick={() => onJoin()}>Join</button>
             </div>
         ) : null }
         { showCreate === false ? ( null ) : <Create name={name} socket={socket} /> }

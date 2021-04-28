@@ -5,15 +5,16 @@ import PropTypes from 'prop-types';
 export default function Trailer(props)
 {
     const [vidId, setVidId] = useState("");
-    const [showTrailer, setShowTrailer] = useState(false);
+    const [showTrailer, setShowTrailer] = useState(true);
     
     useEffect(() =>{
         let query= props.title + " " + "trailer";
         const q = 'key=' + process.env.REACT_APP_YOUTUBE_API_KEY + '&type=video&part=snippet&maxResults=1&q=' + query;
         const params = new URLSearchParams(q);//serializes parameters for url
         const apiRequestURL = 'https://www.googleapis.com/youtube/v3/search?' + params.toString();
+        console.log(`Youtube query url: ${apiRequestURL}`);
         fetch(apiRequestURL).then(response => response.json()).then(data =>{
-            console.log(data)
+            //console.log(data)
             setVidId(data.items[0].id.videoId);
         });
         
@@ -30,7 +31,7 @@ export default function Trailer(props)
         return(
             <div className="trailer-vid">
                 <button type="button" className="show-trailer-btn" onClick={ toggleTrailerVid } >Show/Hide Trailer</button>
-                <iframe width="560" height="315" src={ vidsrc } frameborder="0" allowfullscreen></iframe>
+                <iframe width="895" height="515" src={ vidsrc } frameborder="0" allowFullScreen></iframe>
             </div>
         );
     }
@@ -42,3 +43,7 @@ export default function Trailer(props)
         );
     }
 }
+
+Trailer.propTypes = {
+    title: PropTypes.string.isRequired,
+};

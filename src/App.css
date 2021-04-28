@@ -1,3 +1,75 @@
+.frontpage{
+  border: 20px double white;
+  font-family: Papyrus;
+  margin: auto;
+  position: static;
+  color: white;
+  background: #c31432; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #c31432, #240b36); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c31432, #240b36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  text-align: center;
+}
+
+.memberhostpage {
+  border: 20px double white;
+  background: #c31432; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #c31432, #240b36); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c31432, #240b36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  text-align: center ;
+  font-size: 50px;
+  color: white;
+  font-family: Papyrus;
+}
+
+.memberbutton{
+  box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	font-weight:bold;
+	text-decoration:none;
+	size: 100px;
+	height: 200px;
+  width: 400px;
+  font-family: Papyrus;
+}
+
+.memberbutton:hover {
+	background:black;
+}
+
+.text{
+  size: 20px;
+}
+
+.ChatApp {
+  width: 300px;
+  height: 300px;
+  margin-top: 20px;
+  border: 20px solid black;
+  background: -webkit-linear-gradient(to right, #c9d6ff, #e2e2e2); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c9d6ff, #e2e2e2); 
+  color: white;
+}
+
+.textbox {
+  background: -webkit-linear-gradient(to right, #c31432, #240b36); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c31432, #240b36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: Lucida Handwriting;
+  color: white;
+}
+
+.logo {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  margin: auto;
+}
+
 .App {
   text-align: center;
 }

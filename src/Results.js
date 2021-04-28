@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Trailer from './Trailer';
-
+import ChatApp from './ChatApp';
 
 function Results(props) {
   const { selectedGenre, socket } = props;
@@ -31,8 +31,9 @@ function Results(props) {
     //socket.emit('returnDetails');
     socket.emit('getRecommendation', { selectedGenre });
   }
+  
   return (
-    <div>
+    <div className="results">
       <h1> Results Page </h1>
       <h3> Winning Genre: { selectedGenre }</h3>
       <h3> Recommendation: { watchVideo }</h3>
@@ -45,7 +46,9 @@ function Results(props) {
       <p>Date: {infoList[1]} </p>
       <br />
       <p>Place: {infoList[3]} </p>
-
+      
+      <ChatApp />
+      
     </div>
   );
 }
