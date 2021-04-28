@@ -1,9 +1,12 @@
+  
 /* eslint-disable */
 import React from 'react';
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Results from './Results';
 import PropTypes from 'prop-types';
+import ChatApp from './ChatApp';
+
 
 const socket = io();
 
@@ -73,32 +76,18 @@ function VotingScreen(props)
     }
     
     const genre_cards = [];
-    const genres_fr = [];
     
-    
-    /*
-    useEffect(() =>{
-        socket.on('vote_start', (data) => {
-            //console.log(data.genres);
-            setGenres(data.genres);
-            for (let i = 0; i < data.genres.length; i++)
-            {
-                genres_fr.push(data.genres[i]);
-                console.log("genre_fr:");
-                console.log(genres_fr);
-            }
-            //console.log("genres after setGenres:");
-            //console.log(genres);
-            numberOfParticipants += data.guests;
-        });
-    }, []);
-    
-    console.log("genres_fr after useeffect:");
-    console.log(genres_fr);
-    */
-    for (let i = 0; i < props.genres.length; i++){
-        genre_cards.push(<GenreCard name={ props.genres[i] } voteSelect={ voteSelect } key={ i }/>);
+    for (let i = 0; i < genres.length; i++){
+        genre_cards.push(<GenreCard name={ genres[i] } voteSelect={ voteSelect } key={ i }/>);
     }
+    
+    useEffect(() =>{
+        socket.on('get_genres', (data) => {
+            console.log(data)
+            setGenres(data.genres);
+            numberOfParticipants += data.guests;
+        })
+    }, []);
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
@@ -108,6 +97,7 @@ function VotingScreen(props)
     return (
       <div className='voting_screen' >
         <h2> Movie Genre Vote </h2>
+        <ChatApp />
         { genre_cards }
         <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>
       
@@ -117,7 +107,6 @@ function VotingScreen(props)
 VotingScreen.propTypes = {
     name: PropTypes.string.isRequired,
     socket: PropTypes.any.isRequired,
-    genres: PropTypes.any.isRequired,
 };
 
 function GenreCard(props)

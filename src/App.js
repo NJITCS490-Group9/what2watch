@@ -9,6 +9,7 @@ import { MemberHost } from './MemberHost';
 import VotingScreen from './VotingScreen';
 import './VotingScreen.css';
 import Results from './Results';
+import ChatApp from './ChatApp';
 
 const socket = io();
 
@@ -27,15 +28,16 @@ function App() {
  console.log("hostGenres:");
  console.log(hostGenres);
  if(isVotingTime){
-   return (<VotingScreen name="" socket={ socket } genres={ hostGenres } />);
+   return (
+        <div>
+       <VotingScreen name="" socket={ socket }/>
+        </div>
+       );
  }
 
   return (
     <div>
-        <h1> Welcome to What2Watch </h1>
-        <Navbar>
         <Login />
-        </Navbar>
     </div>
 
   );
