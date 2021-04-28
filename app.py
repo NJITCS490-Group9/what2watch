@@ -133,8 +133,8 @@ def getRecommendation(data):
 @socketio.on('room_created')
 def on_vote_start(data):
     print(data)
+    socketio.emit('vote_start', data, broadcast=True, include_self=True)
     socketio.emit('get_genres', data)
-    socketio.emit('vote_start', broadcast=True, include_self=True)
     socketio.emit('returningDetails', data)
     
 @socketio.on('vote_complete')

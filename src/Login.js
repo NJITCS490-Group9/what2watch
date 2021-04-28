@@ -45,8 +45,8 @@ function Login() {
       <div>
       <div class= 'frontpage'>
       <img class = 'logo' src = 'https://media.discordapp.net/attachments/809594167730372609/837043406969503744/161963692198495630.png?width=468&height=468' />
-      <h1 class = 'text'> Having trouble what you and your friends want to watch? </h1>
-      <h2 class = 'text'> Let us pick out what you are going to watch tonight! </h2>
+      <h1 class = 'text'> Having trouble deciding what to watch with your friends? </h1>
+      <h2 class = 'text'> Let us help you find the perfect thing to watch tonight!! </h2>
       <h3 class = 'text'> App by: Krupesh Ray, Katherine Thai, Ian Gabrielle Gojo Cruz, and Jessica Bakare! </h3>
       <GoogleLogin 
         clientId={clientId}
