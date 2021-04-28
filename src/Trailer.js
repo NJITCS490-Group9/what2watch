@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export default function Trailer(props)
 {
     const [vidId, setVidId] = useState("");
-    const [showTrailer, setShowTrailer] = useState(false);
+    const [showTrailer, setShowTrailer] = useState(true);
     
     useEffect(() =>{
         let query= props.title + " " + "trailer";
