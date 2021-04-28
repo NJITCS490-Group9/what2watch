@@ -43,13 +43,6 @@ img
     
 }
 
-body
-{
-    background: url('https://s3.amazonaws.com/wp_media-prod/app/uploads/2014/12/19185627/movie_theatre.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 h2
 {
     color: white;
