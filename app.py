@@ -102,7 +102,7 @@ def on_details(data):
     elif len(nameDateTimePlace) == 3:
         nameDateTimePlace.append(data['places'])
     print(nameDateTimePlace)
-@socketio.on('returnDetails')
+#@socketio.on('returnDetails')
 def on_returnDetails():
     """Returns name, date, time, place specifications"""
     socketio.emit('returningDetails', {'message': nameDateTimePlace})
@@ -129,6 +129,7 @@ def getRecommendation(data):
         users.append(str(person.username) + "     " + str(person.recs))
     print("UPDATED RECS:")
     print(users)
+    on_returnDetails()
     socketio.emit('returnRec', {"message": movies, "messages":pic})
 @socketio.on('room_created')
 def on_vote_start(data):

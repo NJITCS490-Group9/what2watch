@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Trailer from './Trailer';
 import ChatApp from './ChatApp';
+import Confirmation from './Confirmation';
 
 function Results(props) {
   const { selectedGenre, socket } = props;
@@ -31,7 +32,10 @@ function Results(props) {
     //socket.emit('returnDetails');
     socket.emit('getRecommendation', { selectedGenre });
   }
-  
+  function confirmation() {
+    alert(`CONFIRMATION MESSAGE\n${watchVideo} on ${infoList[1]} at ${infoList[2]}`);
+    //<Confirmation selectedGenre={ selectedGenre } infoList={ infoList }/>;
+  }
   return (
     <div className="results">
       <h1> Results Page </h1>
@@ -47,6 +51,7 @@ function Results(props) {
       <br />
       <p>Place: {infoList[3]} </p>
       
+      <button type="button" onClick={() => confirmation()}>Confirm Movie</button>
       <ChatApp />
       
     </div>
