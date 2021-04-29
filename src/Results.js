@@ -49,12 +49,10 @@ function Results(props) {
       <Trailer title={ watchVideo }/>*/}
       <h3> Recommendation: Ride Along 2  </h3>
       {/*<img className="moviePic" src="https://images-na.ssl-images-amazon.com/images/I/51b0kx4nWZL.jpg" />*/}
-      <Trailer title="Ride ALong 2" />
+      <Trailer title="Ride Along 2" />
 
       <p>Time: {infoList[2]} </p>
-      <br />
       <p>Date: {infoList[1]} </p>
-      <br />
       <p>Place: {infoList[3]} </p>
       
       <button type="button" onClick={() => confirmation()}>Confirm Movie</button>

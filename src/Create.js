@@ -141,6 +141,7 @@ function Create(props) {
             <div className="button">
             <button type="submit" onClick={() => onCreate()}> Create Room </button>
             </div>
+            <br /><br />
           </div>
         </div>
       ) : <VotingScreen name={name} socket={socket} /> }

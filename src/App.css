@@ -1,15 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap%27');
 .background {
   background: #c31432; /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #c31432, #240b36); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #c31432, #240b36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border: 20px double white;
+  font-family: 'Roboto', sans-serif;
 }
 .frontpage{
-  border: 20px double white;
-  font-family: Papyrus;
+  /*border: 20px double white;
+  font-family: Papyrus;*/
+  font-family: 'Roboto', sans-serif;
   margin: auto;
   position: static;
   color: white;
-
+  text-align: center;
 }
 
 .memberhostpage {
@@ -19,7 +23,9 @@
   text-align: center ;
   font-size: 50px;
   color: white;
-  font-family: Papyrus;
+  font-family: 'Roboto', sans-serif;
+  /*font-family: Papyrus;
+  border: 20px double white;*/
 }
 
 .memberbutton{
@@ -36,7 +42,7 @@
 	size: 100px;
 	height: 200px;
   width: 400px;
-  font-family: Papyrus;
+  font-family: 'Roboto', sans-serif;
 }
 
 .memberbutton:hover {
@@ -52,12 +58,16 @@
   height: 300px;
   margin-top: 20px;
   border: 20px solid black;
-  background: #00FFFF;
+  background: -webkit-linear-gradient(to right, #c31432, #240b36); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c31432, #240b36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
 }
 
 .textbox {
-  background: #00FFFF;
-  font-family: Lucida Handwriting;
+  background: -webkit-linear-gradient(to right, #c31432, #240b36); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c31432, #240b36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: 'Roboto', sans-serif;
+  color: white;
 }
 
 .logo {
