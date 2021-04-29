@@ -21,7 +21,9 @@ function Login() {
     console.log("HERRRRRRRRRRE");
     console.log(res.profileObj.name);
     const name = res.profileObj.name;
-    
+    setShown((prevShown) => {
+      return !prevShown;
+    });
     socket.emit('join', { name });
     socket.emit('details', { name });
   };
@@ -33,11 +35,11 @@ function Login() {
   
   const [isShown, setShown] = useState(true);
   
-  function onShowHide() {
+  /*function onShowHide() {
     setShown((prevShown) => {
       return !prevShown;
     });
-  }
+  }*/
 
   return (
     <div>
@@ -57,7 +59,7 @@ function Login() {
         style={{ marginTop: '500px' }}
         isSignedIn={true}                        // Krupesh, maybe you can use this state to show <MemberHost />. You can make a state  isMemberHostShown
       />
-      <button onClick={() => onShowHide()}>Continue{" "}</button>
+      
       </div>
       </div>
       ) : <Logout class= 'frontpage' /> }

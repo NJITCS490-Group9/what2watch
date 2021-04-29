@@ -31,7 +31,7 @@ function VotingScreen(props)
         console.log(selectedGenre);
         setSelectedGenre(e.target.value);
         alert('You have chosen ' + e.target.value + ' Movie.');
-        document.getElementById('submitVote').removeAttribute('disabled');
+        //document.getElementById('submitVote').removeAttribute('disabled');
         console.log('WOW');
     }
    
@@ -99,7 +99,7 @@ function VotingScreen(props)
       <div className='voting_screen' >
         <ChatApp/>
         { genre_cards }
-        <button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>
+        {/*<button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>*/}
       </div>
      </div>
     );

@@ -31,7 +31,7 @@ export default function Trailer(props)
         return(
             <div className="trailer-vid">
                 <button type="button" className="show-trailer-btn" onClick={ toggleTrailerVid } >Show/Hide Trailer</button>
-                <iframe width="895" height="515" src={ vidsrc } frameborder="0" allowFullScreen></iframe>
+                <iframe width="1112" height="635" src={ vidsrc } frameborder="0" allowFullScreen></iframe>
             </div>
         );
     }

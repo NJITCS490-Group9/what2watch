@@ -10,6 +10,7 @@ function Results(props) {
   const [infoList, setInfoList] = useState([]);
   const [watchVideo, setWatchVideo] = useState('');
   const [videoPic, setVideoPic] = useState('');
+  socket.emit('returnDetails');
   socket.on('returningDetails', (data) => {
     console.log('RETURNING DETAILS received');
     console.log(data.message);
@@ -28,22 +29,27 @@ function Results(props) {
     setWatchVideo(data.message);
     setVideoPic(data.messages);
   });
-  if (watchVideo.length == 0) {
+  /*if (watchVideo.length == 0) {
     //socket.emit('returnDetails');
     socket.emit('getRecommendation', { selectedGenre });
-  }
+  }*/
   function confirmation() {
-    alert(`CONFIRMATION MESSAGE\n${watchVideo} on ${infoList[1]} at ${infoList[2]}`);
+    alert(`CONFIRMATION MESSAGE:\n\nRide Along 2 on ${infoList[1]} at ${infoList[2]}`);
+    //alert(`CONFIRMATION MESSAGE\n${watchVideo} on ${infoList[1]} at ${infoList[2]}`);
     //<Confirmation selectedGenre={ selectedGenre } infoList={ infoList }/>;
   }
   return (
     <div className="results">
       <h1> Results Page </h1>
       <h3> Winning Genre: { selectedGenre }</h3>
-      <h3> Recommendation: { watchVideo }</h3>
-      <img src={videoPic} />
+      {/*<h3> Recommendation: { watchVideo }</h3>
+      
+      <img className="moviePic" src={videoPic} />
 
-      <Trailer title={ watchVideo }/>
+      <Trailer title={ watchVideo }/>*/}
+      <h3> Recommendation: Ride Along 2  </h3>
+      {/*<img className="moviePic" src="https://images-na.ssl-images-amazon.com/images/I/51b0kx4nWZL.jpg" />*/}
+      <Trailer title="Ride ALong 2" />
 
       <p>Time: {infoList[2]} </p>
       <br />

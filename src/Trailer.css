@@ -1,7 +1,7 @@
 iframe
 {
-    margin-left: 200px;
-    margin-top: -10px;
+    margin-left: 285px;
+    margin-top: 62px;
 }
 
 h1, h3, p
@@ -14,4 +14,10 @@ h1, h3, p
     background: url('https://s3.amazonaws.com/wp_media-prod/app/uploads/2014/12/19185627/movie_theatre.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+.moviePic
+{
+    height: 75%;
+    width: 55%;
+    vertical-align: middle;
 }
