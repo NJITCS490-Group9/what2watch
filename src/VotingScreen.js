@@ -133,7 +133,7 @@ function GenreCard(props)
     <div class="col-ld-5">
 			<div class="card vote_card">
 				<h5 class="card-header genre_header"> { props.name } </h5>
-				<div class="card-body vote_card_body">
+				<div class="card-body vote_card_body text-center">
 					<img class="card-img-top genre_img" src={ genreCardData[props.name] } alt={ props.name } />
 					<button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
 				</div>
