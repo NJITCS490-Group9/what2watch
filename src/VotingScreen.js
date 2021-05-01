@@ -94,14 +94,24 @@ function VotingScreen(props)
     }
 
     return (
-    <div>
+    /*<div>
       <h2 className="VotingTitle"> Genre Selection </h2>
       <div className='voting_screen' >
         <ChatApp/>
         { genre_cards }
-        {/*<button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>*/}
+        {<button type='button' className='genre_submit_btn' id= 'submitVote' onClick={ voteSubmit } disabled> Submit Vote </button>}
       </div>
-     </div>
+     </div> */
+     <div class="container-fluid vote">
+	    <div class="row">
+		    <div class="col-md-12">
+			    <h3>Choose a Genre!</h3>
+		    </div>
+	    </div>
+	    <div class="card-columns">
+	        { genre_cards }
+	    </div>
+	 </div>
     );
 }
 VotingScreen.propTypes = {
@@ -111,14 +121,25 @@ VotingScreen.propTypes = {
 
 function GenreCard(props)
 {
-    return (
-        <div className='genre_card'>
+    /*return (
+        <div className='container-fluid'>
             <img src={ genreCardData[props.name] } alt={ props.name }/>
             <div className='genre_card_container'>
                 <h4> {props.name} </h4>
                 <button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
             </div>
-        </div>
+        </div>*/
+    return (
+    <div class="col-ld-5">
+			<div class="card vote_card">
+				<h5 class="card-header genre_header"> { props.name } </h5>
+				<div class="card-body vote_card_body">
+					<img class="card-img-top genre_img" src={ genreCardData[props.name] } alt={ props.name } />
+					<button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
+				</div>
+			</div>
+		</div>    
+        
     );    
 }
 

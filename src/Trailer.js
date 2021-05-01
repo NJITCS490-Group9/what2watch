@@ -14,7 +14,6 @@ export default function Trailer(props)
         const apiRequestURL = 'https://www.googleapis.com/youtube/v3/search?' + params.toString();
         console.log(`Youtube query url: ${apiRequestURL}`);
         fetch(apiRequestURL).then(response => response.json()).then(data =>{
-            //console.log(data)
             setVidId(data.items[0].id.videoId);
         });
         
