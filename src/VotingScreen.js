@@ -108,7 +108,7 @@ function VotingScreen(props)
 			    <h3>Choose a Genre!</h3>
 		    </div>
 	    </div>
-	    <div class="row">
+	    <div class="card-columns">
 	        { genre_cards }
 	    </div>
 	 </div>
@@ -130,13 +130,11 @@ function GenreCard(props)
             </div>
         </div>*/
     return (
-    <div class="col-md-5">
+    <div class="col-ld-5">
 			<div class="card vote_card">
-				<h5 class="card-header"> { props.name } </h5>
-				<div class="card-body">
-					<img src={ genreCardData[props.name] } alt={ props.name } />
-				</div>
-				<div class="card-footer">
+				<h5 class="card-header genre_header"> { props.name } </h5>
+				<div class="card-body vote_card_body">
+					<img class="card-img-top genre_img" src={ genreCardData[props.name] } alt={ props.name } />
 					<button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
 				</div>
 			</div>
