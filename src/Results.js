@@ -12,22 +12,22 @@ function Results(props) {
   const [videoPic, setVideoPic] = useState('');
   socket.emit('returnDetails');
   socket.on('returningDetails', (data) => {
-    console.log('RETURNING DETAILS received');
-    console.log(data.message);
+    //console.log('RETURNING DETAILS received');
+    //console.log(data.message);
     // console.log(data);
     // setInfoList(prevMessages => [...prevMessages, data.time]);
     // setInfoList(prevMessages => [...prevMessages, data.date]);
     // setInfoList(prevMessages => [...prevMessages, data.place]);
     setInfoList(data.message);
-    console.log('INFO LIST:');
-    console.log(infoList);
+    //console.log('INFO LIST:');
+    //console.log(infoList);
   });
-  socket.on('returnRec', (data) => {
+  socket.on('returnRec', (data) => { //This event may not be happening since these console.logs don't appear -> watchVideo is still "" -> Trailer gets wrong search query
     console.log('Video received');
-    console.log(data.message);
-    console.log(data.messages);
+    console.log("Name of movie(?): ", data.message);
+    //console.log(data.messages);
     setWatchVideo(data.message);
-    setVideoPic(data.messages);
+    //setVideoPic(data.messages);
   });
   /*if (watchVideo.length == 0) {
     //socket.emit('returnDetails');
@@ -38,18 +38,19 @@ function Results(props) {
     //alert(`CONFIRMATION MESSAGE\n${watchVideo} on ${infoList[1]} at ${infoList[2]}`);
     //<Confirmation selectedGenre={ selectedGenre } infoList={ infoList }/>;
   }
+  console.log("watchVideo before returning Results: ", watchVideo);
   return (
     <div className="results">
       <h1> Results Page </h1>
       <h3> Winning Genre: { selectedGenre }</h3>
-      {/*<h3> Recommendation: { watchVideo }</h3>
+      <h3> Recommendation: { watchVideo }</h3>
       
-      <img className="moviePic" src={videoPic} />
-
-      <Trailer title={ watchVideo }/>*/}
-      <h3> Recommendation: Ride Along 2  </h3>
+     {/* <img className="moviePic" src={videoPic} />*/}
+      
+      <Trailer title={ watchVideo }/>
+      {/*<h3> Recommendation: Ride Along 2  </h3>
       {/*<img className="moviePic" src="https://images-na.ssl-images-amazon.com/images/I/51b0kx4nWZL.jpg" />*/}
-      <Trailer title="Ride Along 2" />
+      {/*<Trailer title="Ride Along 2" />*/}
 
       <p>Time: {infoList[2]} </p>
       <p>Date: {infoList[1]} </p>
