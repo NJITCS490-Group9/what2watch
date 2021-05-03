@@ -18,7 +18,7 @@ function Create(props) {
   const timeRef = useRef(null);
   const dateRef = useRef(null);
   const placeRef = useRef(null);
-  const host_passcodeRef = useRef(null);
+  // const host_passcodeRef = useRef(null);
 
   const [genres, setGenres] = useState([
     { id: 1, value: "Comedy", isChecked: false },
@@ -34,6 +34,7 @@ function Create(props) {
     const date = dateRef.current.value;
     const place = placeRef.current.value;
     const passcode = pass;
+    console.log(pass);
     //const passcode = host_passcodeRef.current.value;
     setPass(pass);
     socket.emit('room_created', {
@@ -43,7 +44,7 @@ function Create(props) {
       'time': time,
       'date': date,
       'place': place,
-      'passcode': passcode
+      'passcode': pass
     })
     console.log("CREATE BUTTON CLICKED");
     
@@ -136,7 +137,7 @@ function Create(props) {
               )) }
             </ul>
             <p>
-              { showPass === true ? ( <p> Passcode: <input ref={host_passcodeRef} type="text" /> <button type="submit" onClick={() => onGenerate()}> Generate </button> </p> ) : <p> Passcode: { pass } </p> }
+              { showPass === true ? ( <p> Passcode: <button type="submit" onClick={() => onGenerate()}> Generate </button> </p> ) : <p> Passcode: { pass } </p> }
             </p>
             <div className="button">
             <button type="submit" onClick={() => onCreate()}> Create Room </button>
