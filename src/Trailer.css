@@ -1,27 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap%27');
-iframe
-{
-    margin-left: 20px;
-    margin-top: 0px;
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap%27");
+iframe {
+  margin-left: 20px;
+  margin-top: 0px;
 }
 
-h1, h3, p
-{
-    color: white;
+h1,
+h3,
+p {
+  color: white;
 }
 
-.results
-{
-    background: url('https://s3.amazonaws.com/wp_media-prod/app/uploads/2014/12/19185627/movie_theatre.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: x-large;
+.results {
+  background: url("https://s3.amazonaws.com/wp_media-prod/app/uploads/2014/12/19185627/movie_theatre.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-size: x-large;
 }
-.moviePic
-{
-    height: 75%;
-    width: 55%;
-    vertical-align: middle;
+.moviePic {
+  height: 75%;
+  width: 55%;
+  vertical-align: middle;
 }

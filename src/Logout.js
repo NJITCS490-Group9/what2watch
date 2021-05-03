@@ -1,16 +1,15 @@
-/* eslint-disable */
-import React from 'react';
-import { GoogleLogout } from 'react-google-login';
+import React from "react";
+import { GoogleLogout } from "react-google-login";
 
-require('dotenv').config();
+require("dotenv").config();
 console.log(process.env);
 
 const clientId = process.env.REACT_APP_CLIENTID;
 
 function Logout() {
   const onSuccess = () => {
-    console.log('Logout made successfully');
-    alert('Logged Out Successfully!');
+    console.log("Logout made successfully");
+    alert("Logged Out Successfully!");
   };
 
   return (

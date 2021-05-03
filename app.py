@@ -37,6 +37,7 @@ socketio = SocketIO(app,
 
 nameDateTimePlace = list()
 
+
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
 def index(filename):
@@ -47,6 +48,7 @@ def index(filename):
 def on_connect():
     """For testing purposes. To see if socket.io is working"""
     print('User connected!')
+
 
 @socketio.on('join')
 def on_join(data):
@@ -60,6 +62,7 @@ def on_join(data):
     if str(data["name"]) not in users:
         add_user(data["name"])
     print(users)
+
 
 @socketio.on('chatapp')
 def on_chat(data):
@@ -88,6 +91,7 @@ def add_user(data):
         return username
     return None
 
+
 @socketio.on('details')
 def on_details(data):
     """Gets the name, date, time, place details"""
@@ -102,16 +106,21 @@ def on_details(data):
     elif len(nameDateTimePlace) == 3:
         nameDateTimePlace.append(data['places'])
     print(nameDateTimePlace)
+
+
 @socketio.on('returnDetails')
 def on_returnDetails():
     """Returns name, date, time, place specifications"""
     socketio.emit('returningDetails', {'message': nameDateTimePlace})
 
+
 @socketio.on('getRecommendation')
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("GET RECOMMENDED MOVIE!!!!!!")
-    admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
+    print(data["chosen"])
+    admin = db.session.query(
+        models.Person).filter_by(username=nameDateTimePlace[0]).first()
     num = randint(0, 4)
     movies = get_recommendation(num, data['selectedGenre'])
     pic = get_picture(num, data['selectedGenre'])
@@ -121,7 +130,7 @@ def getRecommendation(data):
         movies = get_recommendation(num, data['selectedGenre'])
         pic = get_picture(num, data['selectedGenre'])
         print(movies)
-    admin.recs = admin.recs+", "+movies
+    admin.recs = admin.recs + ", " + movies
     db.session.commit()
     all_people = db.session.query(models.Person)
     users = []
@@ -130,14 +139,17 @@ def getRecommendation(data):
     print("UPDATED RECS:")
     print(users)
     on_returnDetails()
-    socketio.emit('returnRec', {"message": movies, "messages":pic})
+    socketio.emit('returnRec', {"message": movies, "messages": pic})
+
+
 @socketio.on('room_created')
 def on_vote_start(data):
     print(data)
     socketio.emit('vote_start', data, broadcast=True, include_self=True)
     socketio.emit('get_genres', data)
     socketio.emit('returningDetails', data)
-    
+
+
 @socketio.on('vote_complete')
 def on_vote_complete(data):
     print(data)
@@ -148,7 +160,11 @@ def on_win_update(data):
     print("winner data received: " + str(data))
     socketio.emit('get_winner_update', broadcast=True, include_self=False)
 
-
+@socketio.on('create_start')
+def on_create_start(data):
+    print(data)
+    socketio.emit('member_wait', data, broadcast=True, include_self=False)
+    
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
     socketio.run(

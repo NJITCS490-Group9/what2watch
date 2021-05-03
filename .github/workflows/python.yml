@@ -2,13 +2,13 @@
 
 name: Python Server CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6,3.7,3.8]
+        python-version: [3.6, 3.7, 3.8]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,15 +34,15 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
           architecture: x64
-          
+
       - name: Install Dependencies
         run: pip install -r requirements.txt
-        
+
       - name: Linting
         run: pylint **/*.py
-      
+
       - name: Run unmocked tests
         run: python Tests/unmocked.py
-        
+
       - name: Run mocked tests
         run: python mocked.py

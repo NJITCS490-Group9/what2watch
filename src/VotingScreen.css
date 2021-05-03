@@ -1,36 +1,30 @@
-.vote
-{
-    background: -webkit-linear-gradient(to right, #c31432, #240b36);
-    background: linear-gradient(to right, #c31432, #240b36); 
-    border: 20px double white;
+.vote {
+  background: -webkit-linear-gradient(to right, #c31432, #240b36);
+  background: linear-gradient(to right, #c31432, #240b36);
+  border: 20px double white;
 }
 
-.genre_header
-{
-    background-color: #feffff;
+.genre_header {
+  background-color: #feffff;
 }
-.vote_card_body
-{
-    /*align-items: center;
+.vote_card_body {
+  /*align-items: center;
     justify-content: center;*/
-    background-color: #efe7e8;
+  background-color: #efe7e8;
 }
-.card_columns
-{
-    column-count: 5;
-}
-
-.genre_select_btn
-{
-    padding: 10px 24px;
-    border-radius: 12px;
-    border: 2px solid white;
-    background-color: #fbdbe0;
-    transition-duration: 0.4s;
+.card_columns {
+  column-count: 5;
 }
 
-.genre_select_btn:hover
-{
-    background-color: #dbf0fb;
-    color: black;
+.genre_select_btn {
+  padding: 10px 24px;
+  border-radius: 12px;
+  border: 2px solid white;
+  background-color: #fbdbe0;
+  transition-duration: 0.4s;
+}
+
+.genre_select_btn:hover {
+  background-color: #dbf0fb;
+  color: black;
 }
