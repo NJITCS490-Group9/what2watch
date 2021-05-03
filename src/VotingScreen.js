@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
@@ -84,13 +85,7 @@ export default function VotingScreen(props)
                 updateNumVotes(numVotes + 1);
                 if(romanceVotes >= max_votes)
                 {
-                    max_votes = romanceVotes;
-                    setWinner("Romance");
-                    console.log("winner in switch-case: ", winner);
-                }
-                break;
-            default:
-                console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
+         console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
         console.log("winner at end of vote-select: ", winner);
         socket.emit("winner_update", {winning_genre: winner, winning_votes: max_votes})
@@ -177,3 +172,4 @@ GenreCard.propTypes = {
     voteSelect: PropTypes.any.isRequired,
     key: PropTypes.any.isRequired,
 };
+}

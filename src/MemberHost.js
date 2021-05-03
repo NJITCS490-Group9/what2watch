@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+/* eslint-disable no-debugger, no-console */
+import React, { useState } from "react";
 import Create from "./Create";
-import Testing from "./Testing";
+import Wait from "./Wait";
 import PropTypes from "prop-types";
 
 function MemberHost(props) {
@@ -34,14 +35,14 @@ function MemberHost(props) {
       {waitScreen === false ? (
         <div>
           {showHost === true ? (
-            <div class="memberhostpage">
+            <div className="memberhostpage">
               <img
-                class="logo"
+                className="logo"
                 src="https://media.discordapp.net/attachments/809594167730372609/837043406969503744/161963692198495630.png?width=468&height=468"
               />
               <p> I would like to: </p>
               <button
-                class="memberbutton"
+                className="memberbutton"
                 type="submit"
                 onClick={() => onHost()}
               >
@@ -52,7 +53,7 @@ function MemberHost(props) {
           {showCreate === false ? null : <Create name={name} socket={socket} />}
         </div>
       ) : (
-        <Testing />
+        <Wait />
       )}
     </>
   );

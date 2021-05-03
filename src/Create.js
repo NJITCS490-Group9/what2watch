@@ -8,10 +8,10 @@ import "./Create.css";
 function Create(props) {
   const { name, socket } = props;
   const [showCreate, setShowCreate] = useState(true);
-  const [showPass, setShowPass] = useState(true);
+  // const [showPass, setShowPass] = useState(true);
   const [genreList, setGenreList] = useState([]);
   const [option, setOption] = useState();
-  const [pass, setPass] = useState();
+  // const [pass, setPass] = useState();
   const mediaRef = useRef(null);
   const guestNumRef = useRef(null);
   const timeRef = useRef(null);
@@ -32,10 +32,10 @@ function Create(props) {
     const time = timeRef.current.value;
     const date = dateRef.current.value;
     const place = placeRef.current.value;
-    const passcode = pass;
-    console.log(pass);
+    // const passcode = pass;
+    // console.log(pass);
     //const passcode = host_passcodeRef.current.value;
-    setPass(pass);
+    // setPass(pass);
     socket.emit("room_created", {
       media: option,
       genres: genreList,
@@ -43,7 +43,7 @@ function Create(props) {
       time: time,
       date: date,
       place: place,
-      passcode: pass,
+      // passcode: pass,
     });
     console.log("CREATE BUTTON CLICKED");
 
@@ -84,20 +84,20 @@ function Create(props) {
     console.log(genreList);
   }
 
-  function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+  // function randomIntFromInterval(min, max) {
+  //   // min and max included
+  //   return Math.floor(Math.random() * (max - min + 1) + min);
+  // }
 
-  function onGenerate() {
-    const pw = randomIntFromInterval(1000, 9999);
-    setPass((prevPass) => {
-      return pw;
-    });
-    setShowPass((prevShowPass) => {
-      return !prevShowPass;
-    });
-  }
+  // function onGenerate() {
+  //   const pw = randomIntFromInterval(1000, 9999);
+  //   setPass((prevPass) => {
+  //     return pw;
+  //   });
+  //   setShowPass((prevShowPass) => {
+  //     return !prevShowPass;
+  //   });
+  // }
 
   return (
     <div className="container">
@@ -154,6 +154,7 @@ function Create(props) {
                 </ul>
               ))}
             </ul>
+            {/* 
             <p>
               {showPass === true ? (
                 <p>
@@ -168,6 +169,7 @@ function Create(props) {
                 <p> Passcode: {pass} </p>
               )}
             </p>
+            */}
             <div className="button">
               <button type="submit" onClick={() => onCreate()}>
                 {" "}
