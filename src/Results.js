@@ -26,7 +26,7 @@ function Results(props) {
     socket.on("returnRec", (data) => {
       console.log("Video received");
       console.log(data.message);
-      console.log(data.messages);
+      //console.log(data.messages);
       setWatchVideo(data.message);
       setVideoPic(data.messages);
     });
@@ -42,18 +42,14 @@ function Results(props) {
     );
     //<Confirmation selectedGenre={ selectedGenre } infoList={ infoList }/>;
   }
+  console.log("watchVideo just before returning in Results: ", watchVideo);
   return (
     <div className="results">
       <h1> Results Page </h1>
-      <h3> Winning Genre: {selectedGenre}</h3>
-      <h3> Recommendation: {watchVideo}</h3>
-
-      {/*<img className="moviePic" src={videoPic} />*/}
-
-      <Trailer title={watchVideo} />
-      {/*<h3> Recommendation: Ride Along 2  </h3>
-      <img className="moviePic" src="https://images-na.ssl-images-amazon.com/images/I/51b0kx4nWZL.jpg" />
-      <Trailer title="Ride Along 2" />*/}
+      <h3> Winning Genre: { selectedGenre }</h3>
+      <h3> Recommendation: { watchVideo }</h3>
+      
+      <Trailer title={ watchVideo }/>
 
       <p>Time: {infoList[2]} </p>
       <p>Date: {infoList[1]} </p>
