@@ -22,4 +22,4 @@ This screenshot shows that mocked.py runs as intended
 - You can see the winning Genre of the movie, the movie and also the trailer.
 - On the other hand you can also simultaneously chat with your friends while being on the app.
 - Once the host confimrs the movie, everyone will get a pop up where and what time you all will be watching the movie. 
-- Happy picking and watch!
+- Happy picking and watching!
