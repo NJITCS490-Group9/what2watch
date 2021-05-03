@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
@@ -97,24 +96,7 @@ function VotingScreen(props)
         socket.emit("winner_update", {winning_genre: winner, winning_votes: max_votes})
         ;
     }
-    /*
-    
-    const voteSubmit = () =>
-    {
-        alert("You have submitted your vote! Please wait for the results to be calculated.");
-        //disable each of the select genre buttons so vote can't be changed after submitting
-        const voteButtons = document.getElementsByClassName('genre_select_btn');
-        for(let i = 0; i < voteButtons.length; i++){
-            voteButtons[i].setAttribute('disabled', true);
-        }
-        
-        
-        }
-        if(numVotes == numberOfParticipants){
-            socket.emit('vote_complete', {'winningVote': winner});
-        }
-    
-    */
+
     const genre_cards = [];
     
     for (let i = 0; i < genres.length; i++){
@@ -150,7 +132,7 @@ function VotingScreen(props)
         console.log("winner when about to return results: ", winner); 
         console.log("actionVotes when about to return results: ", actionVotes);
         console.log("winner", winner);
-        socket.emit('getRecommendation', { winner });
+        socket.emit('getRecommendation', { 'selectedGenre': winner });
         socket.emit('returnDetails')
         return <Results name={ name } selectedGenre={ winner } socket={ socket } />;
     }
