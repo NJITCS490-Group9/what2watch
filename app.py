@@ -111,16 +111,15 @@ def on_returnDetails():
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("GET RECOMMENDED MOVIE!!!!!!")
-    print(data["chosen"])
     admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
     num = randint(0, 4)
-    movies = get_recommendation(num, data['chosen'])
-    pic = get_picture(num, data['chosen'])
+    movies = get_recommendation(num, data['selectedGenre'])
+    pic = get_picture(num, data['selectedGenre'])
     while movies in admin.recs:
         num = randint(0, 4)
         print(num)
-        movies = get_recommendation(num, data['chosen'])
-        pic = get_picture(num, data['chosen'])
+        movies = get_recommendation(num, data['selectedGenre'])
+        pic = get_picture(num, data['selectedGenre'])
         print(movies)
     admin.recs = admin.recs+", "+movies
     db.session.commit()
@@ -144,10 +143,10 @@ def on_vote_complete(data):
     print(data)
     socketio.emit('vote_results', data, broadcast=True, include_self=True)
 
-@socketio.on('create_start')
-def on_create_start(data):
-    print(data)
-    socketio.emit('member_wait', data, broadcast=True, include_self=False)
+@socketio.on('winner_update')
+def on_win_update(data):
+    print("winner data received: " + str(data))
+    socketio.emit('get_winner_update', broadcast=True, include_self=False)
 
 
 if __name__ == "__main__":

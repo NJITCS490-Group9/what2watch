@@ -94,6 +94,8 @@ function VotingScreen(props)
                 console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
         console.log("winner at end of vote-select: ", winner);
+        socket.emit("winner_update", {winning_genre: winner, winning_votes: max_votes})
+        ;
     }
     /*
     
@@ -125,6 +127,21 @@ function VotingScreen(props)
             setGenres(data.genres);
             numberOfParticipants += data.guests;
         });
+        socket.on('get_winner_update', (data) =>
+        {
+            console.log("winner_data: ", data);
+            if(data.winning_votes >= max_votes)
+            {
+                setWinner(data.winning_genre);
+                max_votes = data.winning_votes;
+                console.log("Winning genre has been updated!");
+            }
+            else
+            {
+                console.log("Winning genre is the same!");
+            }
+            
+        });
         voteSelect;
     }, []);
     
@@ -132,6 +149,9 @@ function VotingScreen(props)
         console.log(selectedGenre);
         console.log("winner when about to return results: ", winner); 
         console.log("actionVotes when about to return results: ", actionVotes);
+        console.log("winner", winner);
+        socket.emit('getRecommendation', { winner });
+        socket.emit('returnDetails')
         return <Results name={ name } selectedGenre={ winner } socket={ socket } />;
     }
 
