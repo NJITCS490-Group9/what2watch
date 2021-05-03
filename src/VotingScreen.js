@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Results from './Results';
 import PropTypes from 'prop-types';
-import ChatApp from './ChatApp';
+/*import ChatApp from './ChatApp';*/
 
 
 const socket = io();
@@ -16,12 +16,12 @@ const genreCardData = {
     'Romance': 'https://image.freepik.com/free-photo/couple-silhouettes-beach-sunset_106150-110.jpg',
 };
 
-function VotingScreen(props)
+export default function VotingScreen(props)
 {
     const { name } = props;
     const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
     const [selectedGenre, setSelectedGenre] = useState("");
-    const [hasSelected, toggleSelected] = useState(false);
+    /*const [hasSelected, toggleSelected] = useState(false);*/
     let numberOfParticipants = 1;
     const [numVotes, updateNumVotes] = useState(0);
     const [winner, setWinner] = useState("");
@@ -108,6 +108,7 @@ function VotingScreen(props)
             console.log(data)
             setGenres(data.genres);
             numberOfParticipants += data.guests;
+            console.log("Number of Participants: ", numberOfParticipants);
         });
         socket.on('get_winner_update', (data) =>
         {
@@ -138,16 +139,16 @@ function VotingScreen(props)
     }
 
     return (
-     <div class="container-fluid vote">
-	    <div class="row">
-		    <div class="col-md-12">
-			    <h3>Choose a Genre!</h3>
-		    </div>
-	    </div>
-	    <div class="card-columns">
-	        { genre_cards }
-	    </div>
-	 </div>
+    <div className="container-fluid vote">
+        <div className="row">
+            <div className="col-md-12">
+                <h3>Choose a Genre!</h3>
+            </div>
+        </div>
+        <div className="card-columns">
+            { genre_cards }
+        </div>
+    </div>
     );
 }
 VotingScreen.propTypes = {
@@ -158,11 +159,11 @@ VotingScreen.propTypes = {
 function GenreCard(props)
 {
     return (
-    <div class="col-ld-5">
-			<div class="card vote_card">
-				<h5 class="card-header genre_header"> { props.name } </h5>
-				<div class="card-body vote_card_body text-center">
-					<img class="card-img-top genre_img" src={ genreCardData[props.name] } alt={ props.name } />
+    <div className="col-ld-5">
+			<div className="card vote_card">
+				<h5 className="card-header genre_header"> { props.name } </h5>
+				<div className="card-body vote_card_body text-center">
+					<img className="card-img-top genre_img" src={ genreCardData[props.name] } alt={ props.name } />
 					<button type='button' className='genre_select_btn' value={ props.name } onClick={ props.voteSelect }>Select</button>
 				</div>
 			</div>
@@ -171,4 +172,8 @@ function GenreCard(props)
     );    
 }
 
-export default VotingScreen;
+GenreCard.propTypes = {
+    name: PropTypes.string.isRequired,
+    voteSelect: PropTypes.any.isRequired,
+    key: PropTypes.any.isRequired,
+};
