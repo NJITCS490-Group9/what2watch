@@ -6,8 +6,6 @@ CI Problem: mocked test not running correctly
 This screenshot shows that mocked.py runs as intended
 ![alt text](https://cdn.discordapp.com/attachments/826456975130361860/833880112356261939/unknown.png)
 
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

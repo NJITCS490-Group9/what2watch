@@ -52,7 +52,8 @@ class AddUserTestCase(unittest.TestCase):
                 KEY_EXPECTED: ['Charlie'],
             },
         ]
-        initial_person = models.Person(username=INITIAL_USERNAME, recs="Greys Anatomy")
+        initial_person = models.Person(username=INITIAL_USERNAME,
+                                       recs="Greys Anatomy")
         self.initial_db_mock = [initial_person]
 
     def mocked_db_session_add(self, username):
@@ -107,6 +108,7 @@ class AddUserTestCase(unittest.TestCase):
                         self.assertNotEqual(len(actual_result),
                                             len(expected_result))
                         self.assertNotEqual(actual_result, expected_result)
+
 
 if __name__ == '__main__':
     unittest.main()

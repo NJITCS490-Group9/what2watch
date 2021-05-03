@@ -1,14 +1,14 @@
 /* eslint-disable */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 function Confirmation(props) {
   const { selectedGenre, infoList } = props;
-  
+
   return (
     <div className="confirmation">
       <h1> Confirmation Page </h1>
-      <h3> Winning Genre: { selectedGenre }</h3>
+      <h3> Winning Genre: {selectedGenre}</h3>
       <p>Time: {infoList[2]} </p>
       <br />
       <p>Date: {infoList[1]} </p>
