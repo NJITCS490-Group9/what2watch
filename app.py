@@ -141,14 +141,12 @@ def getRecommendation(data):
     on_returnDetails()
     socketio.emit('returnRec', {"message": movies, "messages": pic})
 
-
 @socketio.on('room_created')
 def on_vote_start(data):
     print(data)
     socketio.emit('vote_start', data, broadcast=True, include_self=True)
     socketio.emit('get_genres', data)
     socketio.emit('returningDetails', data)
-
 
 @socketio.on('vote_complete')
 def on_vote_complete(data):

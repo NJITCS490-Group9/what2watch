@@ -131,8 +131,6 @@ export default function VotingScreen(props)
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
         console.log("winner when about to return results: ", winner); 
-        console.log("actionVotes when about to return results: ", actionVotes);
-        console.log("winner", winner);
         socket.emit('getRecommendation', { 'selectedGenre': winner });
         socket.emit('returnDetails')
         return <Results name={ name } selectedGenre={ winner } socket={ socket } />;

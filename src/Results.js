@@ -46,8 +46,8 @@ function Results(props) {
   return (
     <div className="results">
       <h1> Results Page </h1>
-      <h3> Winning Genre: { selectedGenre }</h3>
-      <h3> Recommendation: { watchVideo }</h3>
+      <h3> Winning Genre: { selectedGenre } </h3>
+      <h3> Recommendation: { watchVideo } </h3>
       
       <Trailer title={ watchVideo }/>
 
