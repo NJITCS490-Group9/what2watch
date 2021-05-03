@@ -111,15 +111,16 @@ def on_returnDetails():
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("GET RECOMMENDED MOVIE!!!!!!")
+    print(data["chosen"])
     admin = db.session.query(models.Person).filter_by(username=nameDateTimePlace[0]).first()
     num = randint(0, 4)
-    movies = get_recommendation(num, data['selectedGenre'])
-    pic = get_picture(num, data['selectedGenre'])
+    movies = get_recommendation(num, data['chosen'])
+    pic = get_picture(num, data['chosen'])
     while movies in admin.recs:
         num = randint(0, 4)
         print(num)
-        movies = get_recommendation(num, data['selectedGenre'])
-        pic = get_picture(num, data['selectedGenre'])
+        movies = get_recommendation(num, data['chosen'])
+        pic = get_picture(num, data['chosen'])
         print(movies)
     admin.recs = admin.recs+", "+movies
     db.session.commit()

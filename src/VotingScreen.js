@@ -33,6 +33,10 @@ function VotingScreen(props)
         alert('You have chosen ' + e.target.value + ' Movie.');
         //document.getElementById('submitVote').removeAttribute('disabled');
         console.log('WOW');
+        const chosen = e.target.value;
+        console.log(chosen);
+        socket.emit('getRecommendation', { chosen });
+        socket.emit('returnDetails');
     }
    
     const voteSubmit = () =>
@@ -90,6 +94,8 @@ function VotingScreen(props)
     
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
+        //socket.emit('returnDetails');
+        //socket.emit('getRecommendation', { selectedGenre });
         return <Results name={ name } selectedGenre={ selectedGenre } socket={ socket } />;
     }
 
