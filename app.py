@@ -144,6 +144,11 @@ def on_vote_complete(data):
     print(data)
     socketio.emit('vote_results', data, broadcast=True, include_self=True)
 
+@socketio.on('create_start')
+def on_create_start(data):
+    print(data)
+    socketio.emit('member_wait', data, broadcast=True, include_self=False)
+
 
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
