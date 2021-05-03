@@ -86,7 +86,7 @@ function VotingScreen(props)
     
     useEffect(() =>{
         socket.on('get_genres', (data) => {
-            console.log(data)
+            console.log(data);
             setGenres(data.genres);
             numberOfParticipants += data.guests;
         })
