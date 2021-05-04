@@ -70,38 +70,39 @@ export default function VotingScreen(props)
         socket.on('get_genres', (data) => {
             console.log(data)
             setGenres(data.genres);
-            numberOfParticipants += data.guests;
+            numberOfParticipants += parseInt(data.guests);
             console.log("Number of Participants: ", numberOfParticipants);
         });
         
         socket.on('get_vote_update', (data) =>
         {
             console.log("vote_update_data: ", data);
-            switch(data.genre){
-            case 'Action':
-                setActionVotes(actionVotes + 1);
-                updateNumVotes(numVotes + 1);
-                break;
-            case 'Comedy':
-                setComedyVotes(comedyVotes + 1);
-                updateNumVotes(numVotes + 1);
-                break;
-            case 'Fantasy':
-                setFantasyVotes(fantasyVotes + 1);
-                updateNumVotes(numVotes + 1);
-                break;
-            case 'Horror':
-                setHorrorVotes(horrorVotes + 1);
-                updateNumVotes(numVotes + 1);
-                break;
-            case 'Romance':
-                setRomanceVotes(romanceVotes + 1);
-                updateNumVotes(numVotes + 1);
-                break;
-            default:
-                console.log('Hmmm');
-        }
-        })
+            switch(data.genre)
+            {
+                case 'Action':
+                    setActionVotes(actionVotes + 1);
+                    updateNumVotes(numVotes + 1);
+                    break;
+                case 'Comedy':
+                    setComedyVotes(comedyVotes + 1);
+                    updateNumVotes(numVotes + 1);
+                    break;
+                case 'Fantasy':
+                    setFantasyVotes(fantasyVotes + 1);
+                    updateNumVotes(numVotes + 1);
+                    break;
+                case 'Horror':
+                    setHorrorVotes(horrorVotes + 1);
+                    updateNumVotes(numVotes + 1);
+                    break;
+                case 'Romance':
+                    setRomanceVotes(romanceVotes + 1);
+                    updateNumVotes(numVotes + 1);
+                    break;
+                default:
+                    console.log('Hmmm');
+            }
+        });
         voteSelect;
     }, []);
     
@@ -113,27 +114,35 @@ export default function VotingScreen(props)
         romanceVotes: "Romance",
     }
     
-    if (selectedGenre.length != 0){
+    if (selectedGenre.length != 0 && numVotes === numberOfParticipants){
         console.log(selectedGenre);
         //console.log("winner when about to return results: ", winner); 
         socket.emit('getRecommendation', { 'selectedGenre': results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)] });
         socket.emit('returnDetails')
         return <Results name={ name } selectedGenre={ results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)] } socket={ socket } />;
     }
-    return (
-    <div className="container-fluid vote">
-        <div className="row">
-            <div className="col-md-12">
-                <h3>Choose a Genre!</h3>
+    else if(selectedGenre.length != 0 && numVotes < numberOfParticipants)
+    {
+        console.log("numVotes: ", numVotes);
+        console.log("NumParticipants", numberOfParticipants);
+        alert("Please wait for everyone to finish voting!");
+    }
+    else
+    {
+         return (
+            <div className="container-fluid vote">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h3>Choose a Genre!</h3>
+                    </div>
+                </div>
+                <div className="card-columns">
+                    { genre_cards }
+                </div>
             </div>
-        </div>
-        <div className="card-columns">
-            { genre_cards }
-        </div>
-    </div>
-    );
+        );
+    }
 }
-
 
 VotingScreen.propTypes = {
     name: PropTypes.string.isRequired,

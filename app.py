@@ -170,7 +170,7 @@ def on_vote_complete(data):
 def on_win_update(data):
     """Function emits that there is a winning genre"""
     print("New genre vote received: " + str(data))
-    socketio.emit('get_vote_update', broadcast=True, include_self=False)
+    socketio.emit('get_vote_update', data, broadcast=True, include_self=False)
 
 @socketio.on('create_start')
 def on_create_start(data):
