@@ -38,7 +38,6 @@ socketio = SocketIO(app,
 
 nameDateTimePlace = list()
 
-
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
 def index(filename):
@@ -158,9 +157,8 @@ def on_vote_start(data):
     """This function emits that the voting has started, gets the genres, and returns details."""
     print(data)
     socketio.emit('vote_start', data, broadcast=True, include_self=True)
-    socketio.emit('get_genres', data)
+    socketio.emit('get_genres', data,  broadcast=True, include_self=True)
     socketio.emit('returningDetails', data)
-
 
 @socketio.on('vote_complete')
 def on_vote_complete(data):
@@ -168,11 +166,11 @@ def on_vote_complete(data):
     print(data)
     socketio.emit('vote_results', data, broadcast=True, include_self=True)
 
-@socketio.on('winner_update')
+@socketio.on('genre_vote_update')
 def on_win_update(data):
     """Function emits that there is a winning genre"""
-    print("winner data received: " + str(data))
-    socketio.emit('get_winner_update', broadcast=True, include_self=False)
+    print("New genre vote received: " + str(data))
+    socketio.emit('get_vote_update', data, broadcast=True, include_self=False)
 
 @socketio.on('create_start')
 def on_create_start(data):

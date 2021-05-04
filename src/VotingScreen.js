@@ -18,10 +18,10 @@ export default function VotingScreen(props)
     const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
     const [selectedGenre, setSelectedGenre] = useState("");
     /*const [hasSelected, toggleSelected] = useState(false);*/
-    let numberOfParticipants = 1;
+    const [numberOfParticipants, updateParticipants] = useState(1);
     const [numVotes, updateNumVotes] = useState(0);
-    const [winner, setWinner] = useState("");
-    let max_votes = 0;
+    //const [winner, setWinner] = useState("");
+    //let max_votes = 0;
     
     const [actionVotes, setActionVotes] = useState(0);
     const [comedyVotes, setComedyVotes] = useState(0);
@@ -36,61 +36,26 @@ export default function VotingScreen(props)
         switch(e.target.value){
             case 'Action':
                 setActionVotes(actionVotes + 1);
-                updateNumVotes(numVotes + 1);
-                console.log("actionVotes: ", String(actionVotes));
-                if(actionVotes >= max_votes)
-                {
-                    max_votes = actionVotes;
-                    setWinner("Action");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Comedy':
                 setComedyVotes(comedyVotes + 1);
-                updateNumVotes(numVotes + 1);
-                if(comedyVotes >= max_votes)
-                {
-                    max_votes = comedyVotes;
-                    setWinner("Comedy");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Fantasy':
                 setFantasyVotes(fantasyVotes + 1);
-                updateNumVotes(numVotes + 1);
-                if(fantasyVotes >= max_votes)
-                {
-                    max_votes = fantasyVotes;
-                    setWinner("Fantasy");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Horror':
                 setHorrorVotes(horrorVotes + 1);
-                updateNumVotes(numVotes + 1);
-                if(horrorVotes >= max_votes)
-                {
-                    max_votes = horrorVotes;
-                    setWinner("Horror");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Romance':
                 setRomanceVotes(romanceVotes + 1);
-                updateNumVotes(numVotes + 1);
-                if(romanceVotes >= max_votes)
-                {
-                    max_votes = romanceVotes;
-                    setWinner("Romance");
-                    console.log("winner in switch-case: ", winner);
-                }
+                
                 break;
             default:
                 console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
-        console.log("winner at end of vote-select: ", winner);
-        socket.emit("winner_update", {winning_genre: winner, winning_votes: max_votes})
-        ;
+        //console.log("winner at end of vote-select: ", winner);
+        updateNumVotes(numVotes + 1);
+        socket.emit("genre_vote_update", {"genre": e.target.value});
     }
     const genre_cards = [];
     
@@ -99,52 +64,87 @@ export default function VotingScreen(props)
     }
     
     useEffect(() =>{
-        socket.on('get_genres', (data) => {
-            console.log(data)
+        socket.on('vote_start', (data) => {
+            console.log("vote_start data: ", data);
             setGenres(data.genres);
-            numberOfParticipants += data.guests;
+            updateParticipants(numberOfParticipants + parseInt(data.guests)); //for some reason, only first user aka host gets update on num of participants
             console.log("Number of Participants: ", numberOfParticipants);
         });
-        socket.on('get_winner_update', (data) =>
+        
+        socket.on('get_vote_update', (data) =>
         {
-            console.log("winner_data: ", data);
-            if(data.winning_votes >= max_votes)
+            console.log("vote_update_data: ", data);
+            switch(data.genre)
             {
-                setWinner(data.winning_genre);
-                max_votes = data.winning_votes;
-                console.log("Winning genre has been updated!");
+                case 'Action':
+                    setActionVotes(actionVotes + 1);
+                    break;
+                case 'Comedy':
+                    setComedyVotes(comedyVotes + 1);
+                    break;
+                case 'Fantasy':
+                    setFantasyVotes(fantasyVotes + 1);
+                    break;
+                case 'Horror':
+                    setHorrorVotes(horrorVotes + 1);
+                    break;
+                case 'Romance':
+                    setRomanceVotes(romanceVotes + 1);
+                    break;
+                default:
+                    console.log('Hmmm');
             }
-            else
-            {
-                console.log("Winning genre is the same!");
-            }
-            
+            updateNumVotes(numVotes + 1);
         });
         voteSelect;
     }, []);
     
-    if (selectedGenre.length != 0){
-        console.log(selectedGenre);
-        console.log("winner when about to return results: ", winner); 
-        console.log("actionVotes when about to return results: ", actionVotes);
-        console.log("winner", winner);
+    const results = {
+        actionVotes: "Action",
+        comedyVotes: "Comedy",
+        fantasyVotes: "Fantasy",
+        horrorVotes: "Horror",
+        romanceVotes: "Romance",
+    }
+    
+    let winner ="Action";
+    if (selectedGenre.length != 0 && numVotes === numberOfParticipants){
+        winner = results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)];
+        //console.log(selectedGenre);
+        console.log("winner: ", winner);
+        //console.log("winner when about to return results: ", winner); 
         socket.emit('getRecommendation', { 'selectedGenre': winner });
         socket.emit('returnDetails')
+        console.log("numVotes: ", numVotes);
+        console.log("NumParticipants", numberOfParticipants);
         return <Results name={ name } selectedGenre={ winner } socket={ socket } />;
     }
-    return (
-    <div className="container-fluid vote">
-        <div className="row">
-            <div className="col-md-12">
-                <h3>Choose a Genre!</h3>
+    else if(selectedGenre.length != 0 && numVotes < numberOfParticipants)
+    {
+        console.log("numVotes: ", numVotes);
+        console.log("NumParticipants", numberOfParticipants);
+        alert("Please wait for everyone to finish voting!");
+        return <Results name={ name } selectedGenre={ winner } socket={ socket } />;
+    }
+    else
+    {
+        console.log("numVotes: ", numVotes);
+        console.log("NumParticipants", numberOfParticipants);
+         return (
+            <div className="container-fluid vote">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h3>Choose a Genre!</h3>
+                    </div>
+                </div>
+                <div className="card-columns">
+                    { genre_cards }
+                </div>
             </div>
-        </div>
-        <div className="card-columns">
-            { genre_cards }
-        </div>
-    </div>
-    );
+        );
+    }
 }
+
 VotingScreen.propTypes = {
     name: PropTypes.string.isRequired,
     socket: PropTypes.any.isRequired,
@@ -164,6 +164,7 @@ function GenreCard(props)
         
     );    
 }
+
 GenreCard.propTypes = {
     name: PropTypes.string.isRequired,
     voteSelect: PropTypes.any.isRequired,
