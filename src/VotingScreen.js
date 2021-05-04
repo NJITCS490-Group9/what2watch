@@ -20,8 +20,8 @@ export default function VotingScreen(props)
     /*const [hasSelected, toggleSelected] = useState(false);*/
     let numberOfParticipants = 1;
     const [numVotes, updateNumVotes] = useState(0);
-    const [winner, setWinner] = useState("");
-    let max_votes = 0;
+    //const [winner, setWinner] = useState("");
+    //let max_votes = 0;
     
     const [actionVotes, setActionVotes] = useState(0);
     const [comedyVotes, setComedyVotes] = useState(0);
@@ -37,60 +37,28 @@ export default function VotingScreen(props)
             case 'Action':
                 setActionVotes(actionVotes + 1);
                 updateNumVotes(numVotes + 1);
-                console.log("actionVotes: ", String(actionVotes));
-                if(actionVotes >= max_votes)
-                {
-                    max_votes = actionVotes;
-                    setWinner("Action");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Comedy':
                 setComedyVotes(comedyVotes + 1);
                 updateNumVotes(numVotes + 1);
-                if(comedyVotes >= max_votes)
-                {
-                    max_votes = comedyVotes;
-                    setWinner("Comedy");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Fantasy':
                 setFantasyVotes(fantasyVotes + 1);
                 updateNumVotes(numVotes + 1);
-                if(fantasyVotes >= max_votes)
-                {
-                    max_votes = fantasyVotes;
-                    setWinner("Fantasy");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Horror':
                 setHorrorVotes(horrorVotes + 1);
                 updateNumVotes(numVotes + 1);
-                if(horrorVotes >= max_votes)
-                {
-                    max_votes = horrorVotes;
-                    setWinner("Horror");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             case 'Romance':
                 setRomanceVotes(romanceVotes + 1);
                 updateNumVotes(numVotes + 1);
-                if(romanceVotes >= max_votes)
-                {
-                    max_votes = romanceVotes;
-                    setWinner("Romance");
-                    console.log("winner in switch-case: ", winner);
-                }
                 break;
             default:
                 console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
-        console.log("winner at end of vote-select: ", winner);
-        socket.emit("winner_update", {winning_genre: winner, winning_votes: max_votes})
-        ;
+        //console.log("winner at end of vote-select: ", winner);
+        socket.emit("genre_vote_update", {"genre": e.target.value});
     }
     const genre_cards = [];
     
@@ -105,30 +73,52 @@ export default function VotingScreen(props)
             numberOfParticipants += data.guests;
             console.log("Number of Participants: ", numberOfParticipants);
         });
-        socket.on('get_winner_update', (data) =>
+        
+        socket.on('get_vote_update', (data) =>
         {
-            console.log("winner_data: ", data);
-            if(data.winning_votes >= max_votes)
-            {
-                setWinner(data.winning_genre);
-                max_votes = data.winning_votes;
-                console.log("Winning genre has been updated!");
-            }
-            else
-            {
-                console.log("Winning genre is the same!");
-            }
-            
-        });
+            console.log("vote_update_data: ", data);
+            switch(data.genre){
+            case 'Action':
+                setActionVotes(actionVotes + 1);
+                updateNumVotes(numVotes + 1);
+                break;
+            case 'Comedy':
+                setComedyVotes(comedyVotes + 1);
+                updateNumVotes(numVotes + 1);
+                break;
+            case 'Fantasy':
+                setFantasyVotes(fantasyVotes + 1);
+                updateNumVotes(numVotes + 1);
+                break;
+            case 'Horror':
+                setHorrorVotes(horrorVotes + 1);
+                updateNumVotes(numVotes + 1);
+                break;
+            case 'Romance':
+                setRomanceVotes(romanceVotes + 1);
+                updateNumVotes(numVotes + 1);
+                break;
+            default:
+                console.log('Hmmm');
+        }
+        })
         voteSelect;
     }, []);
     
+    const results = {
+        actionVotes: "Action",
+        comedyVotes: "Comedy",
+        fantasyVotes: "Fantasy",
+        horrorVotes: "Horror",
+        romanceVotes: "Romance",
+    }
+    
     if (selectedGenre.length != 0){
         console.log(selectedGenre);
-        console.log("winner when about to return results: ", winner); 
-        socket.emit('getRecommendation', { 'selectedGenre': winner });
+        //console.log("winner when about to return results: ", winner); 
+        socket.emit('getRecommendation', { 'selectedGenre': results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)] });
         socket.emit('returnDetails')
-        return <Results name={ name } selectedGenre={ winner } socket={ socket } />;
+        return <Results name={ name } selectedGenre={ results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)] } socket={ socket } />;
     }
     return (
     <div className="container-fluid vote">
@@ -143,6 +133,8 @@ export default function VotingScreen(props)
     </div>
     );
 }
+
+
 VotingScreen.propTypes = {
     name: PropTypes.string.isRequired,
     socket: PropTypes.any.isRequired,
@@ -162,6 +154,7 @@ function GenreCard(props)
         
     );    
 }
+
 GenreCard.propTypes = {
     name: PropTypes.string.isRequired,
     voteSelect: PropTypes.any.isRequired,
