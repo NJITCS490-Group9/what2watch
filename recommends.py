@@ -1,33 +1,18 @@
-import requests
-import os
-from dotenv import load_dotenv, find_dotenv
+#pylint: disable=C0301
+"""Python file returns the movie recommendation and it's associated poster"""
 
-
-def get_recommendation(num, chosenGenre):
+def get_recommendation(num, chosen_genre):
+    """Returns a movie recommendation based on the given genre"""
     print("RECEIVED!!! ")
-    print(chosenGenre)
-    '''url = "https://ivaee-internet-video-archive-entertainment-v1.p.rapidapi.com/entertainment/search/"
-    
-    querystring = {"Genres":"Romance"}
-    
-    headers = {
-        'content-type': "application/json",
-        'x-rapidapi-key': os.getenv('x-rapidapi-key'),
-        'x-rapidapi-host': os.getenv('x-rapidapi-host')
-        }
-    
-    response = requests.request("GET", url, headers=headers, params=querystring)'''
-    
+    print(chosen_genre)
     title = []
-    #print(response.text)
-    #if "Invalid API" in response.text:
-    if 'Action' in chosenGenre:
+    if 'Action' in chosen_genre:
         title = ['Fight Club', 'Inception', 'Avengers: Endgame', 'Fast and Furious', 'Wanda Vision']
-    elif chosenGenre == 'Comedy':
+    elif chosen_genre == 'Comedy':
         title = ['The Big Bang Theory', 'Glee', 'Friend', 'The Office', 'Central Intelligence']
-    elif chosenGenre == 'Fantasy':
-        title = ['Divergent', 'Star Wars', 'Percy Jackson: The Lightning Thief', 'Harry Potter: Prisoner of Azkaban','Game of Thrones']
-    elif chosenGenre == 'Horror':
+    elif chosen_genre == 'Fantasy':
+        title = ['Divergent', 'Star Wars', 'Percy Jackson: The Lightning Thief', 'Harry Potter: Prisoner of Azkaban', 'Game of Thrones']
+    elif chosen_genre == 'Horror':
         title = ['It', 'Ma', 'The Quiet Place', 'The Bride of Frankenstein', 'American Horror Story']
     else:
         title = ['The Notebook', 'The Fault in Our Stars', 'Little Women', 'Titanic', '27 Dresses']
@@ -36,9 +21,10 @@ def get_recommendation(num, chosenGenre):
     print(num)
     return title[num]
 
-def get_picture(num, chosenGenre):
+def get_picture(num, chosen_genre):
+    """Returns movie/tv poster associated with the movie"""
     cover = []
-    if 'Action' in chosenGenre:
+    if 'Action' in chosen_genre:
         cover = [
             'https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg',
             'https://flxt.tmsimg.com/assets/p7825626_p_v10_af.jpg',
@@ -46,7 +32,7 @@ def get_picture(num, chosenGenre):
             'https://static.wikia.nocookie.net/fastandfurious/images/0/04/The_Fast_and_the_Furious_%28DVD_Cover%29.jpeg/revision/latest?cb=20150501043627',
             'https://cdn.flickeringmyth.com/wp-content/uploads/2021/02/WandaVision-midseason-poster-600x900.jpg'
             ]
-    elif chosenGenre == 'Comedy':
+    elif chosen_genre == 'Comedy':
         cover = [
             'https://i5.walmartimages.com/asr/b2953acd-2a8d-4cff-b284-5abb514e909a_1.a0ba883abdb2e3655e674107d3817cfd.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff',
             'https://m.media-amazon.com/images/M/MV5BYWJhZjNjZjUtM2JlZC00ZWE3LWJmZDItMDRhMWJkMTJhZDhkXkEyXkFqcGdeQXVyMTkzODUwNzk@._V1_.jpg',
@@ -54,7 +40,7 @@ def get_picture(num, chosenGenre):
             'https://cdn.shopify.com/s/files/1/0969/9128/products/91TmR1v-qRL._RI_6381f3ff-2abf-4575-9379-2256bcacf06c.jpg?v=1556951531',
             'https://images.moviesanywhere.com/85373ff29e53d8798332de11eb578e89/32984944-6315-48ea-92d5-54c63c3b984e.jpg'
             ]
-    elif chosenGenre == 'Fantasy':
+    elif chosen_genre == 'Fantasy':
         cover = [
             'https://i.pinimg.com/originals/45/d4/bc/45d4bc41e2a8e4a68205c103df23bb89.jpg',
             'https://i.pinimg.com/originals/9c/60/11/9c601107244fdaa89e66577d2e59190c.gif',
@@ -62,7 +48,7 @@ def get_picture(num, chosenGenre):
             'https://static.wikia.nocookie.net/harrypotter/images/a/a8/Harry_Potter_and_the_Prisoner_of_Azkaban_2.jpg/revision/latest?cb=20130803163319',
             'http://images6.fanpop.com/image/photos/38500000/Game-of-Thrones-Season-5-Episode-Poster-game-of-thrones-38564696-268-350.gif'
             ]
-    elif chosenGenre == 'Horror':
+    elif chosen_genre == 'Horror':
         cover = [
             'https://i.pinimg.com/originals/6d/20/d1/6d20d140a8c63c4a46dc228b125237b0.jpg',
             'https://cdn.shopify.com/s/files/1/0747/3829/products/mL3085_1024x1024.jpg?v=1571445679',

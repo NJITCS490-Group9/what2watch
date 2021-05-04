@@ -1,15 +1,12 @@
-/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Trailer from "./Trailer";
 import ChatApp from "./ChatApp";
-import Confirmation from "./Confirmation";
 
 function Results(props) {
   const { selectedGenre, socket } = props;
   const [infoList, setInfoList] = useState([]);
   const [watchVideo, setWatchVideo] = useState("");
-  const [videoPic, setVideoPic] = useState("");
 
   useEffect(() => {
     socket.on("returningDetails", (data) => {
@@ -28,7 +25,6 @@ function Results(props) {
       console.log(data.message);
       //console.log(data.messages);
       setWatchVideo(data.message);
-      setVideoPic(data.messages);
     });
   }, []);
   /*if (watchVideo.length == 0) {
@@ -46,7 +42,6 @@ function Results(props) {
   function suggest() {
     console.log("We need another suggestion");
     setWatchVideo("");
-    setVideoPic("");
     console.log("this");
     console.log( {selectedGenre} );
     console.log("that");
