@@ -18,7 +18,7 @@ export default function VotingScreen(props)
     const [genres, setGenres] = useState(["Action", "Comedy", "Fantasy", "Horror", "Romance"]);
     const [selectedGenre, setSelectedGenre] = useState("");
     /*const [hasSelected, toggleSelected] = useState(false);*/
-    let numberOfParticipants = 1;
+    const [numberOfParticipants, updateParticipants] = useState(1);
     const [numVotes, updateNumVotes] = useState(0);
     //const [winner, setWinner] = useState("");
     //let max_votes = 0;
@@ -70,7 +70,7 @@ export default function VotingScreen(props)
         socket.on('get_genres', (data) => {
             console.log(data)
             setGenres(data.genres);
-            numberOfParticipants += parseInt(data.guests);
+            updateParticipants(numberOfParticipants + parseInt(data.guests));
             console.log("Number of Participants: ", numberOfParticipants);
         });
         
@@ -115,11 +115,14 @@ export default function VotingScreen(props)
     }
     
     if (selectedGenre.length != 0 && numVotes === numberOfParticipants){
+        let winner = results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)];
         console.log(selectedGenre);
         //console.log("winner when about to return results: ", winner); 
-        socket.emit('getRecommendation', { 'selectedGenre': results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)] });
+        socket.emit('getRecommendation', { 'selectedGenre': winner });
         socket.emit('returnDetails')
-        return <Results name={ name } selectedGenre={ results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)] } socket={ socket } />;
+        console.log("numVotes: ", numVotes);
+        console.log("NumParticipants", numberOfParticipants);
+        return <Results name={ name } selectedGenre={ winner } socket={ socket } />;
     }
     else if(selectedGenre.length != 0 && numVotes < numberOfParticipants)
     {
@@ -129,6 +132,8 @@ export default function VotingScreen(props)
     }
     else
     {
+        console.log("numVotes: ", numVotes);
+        console.log("NumParticipants", numberOfParticipants);
          return (
             <div className="container-fluid vote">
                 <div className="row">
