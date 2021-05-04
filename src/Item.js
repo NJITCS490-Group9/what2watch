@@ -1,13 +1,16 @@
-/* eslint-disable */
 import React from "react";
+import PropTypes from "prop-types";
 
 export function Item(props) {
+  const { name } = props;
   return (
-    <div class="textbox">
+    <div className="textbox">
       {" "}
-      <div> {props.name} </div>{" "}
+      <div> {name} </div>{" "}
     </div>
   );
 }
-
+Item.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 export default Item;

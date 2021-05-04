@@ -1,6 +1,7 @@
+#pylint: disable=C0103, E1101, W0611, W1508, C0413
+"""app.py is the controller of our what2watch app"""
 import os
 from random import randint
-import requests
 from flask import Flask, send_from_directory, json, session
 from flask_socketio import SocketIO
 from flask_cors import CORS
@@ -41,6 +42,7 @@ nameDateTimePlace = list()
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
 def index(filename):
+    """returns the filename to build"""
     return send_from_directory('./build', filename)
 
 
@@ -118,7 +120,7 @@ def on_returnDetails():
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("GET RECOMMENDED MOVIE!!!!!!")
-    print(data["chosen"])
+    print(data["selectedGenre"])
     admin = db.session.query(
         models.Person).filter_by(username=nameDateTimePlace[0]).first()
     num = randint(0, 4)
@@ -141,8 +143,19 @@ def getRecommendation(data):
     on_returnDetails()
     socketio.emit('returnRec', {"message": movies, "messages": pic})
 
+@socketio.on('suggest')
+def on_suggest(data):
+    """Returns a new movie suggestion"""
+    print("SUGGESTING A MOVIE!!!!")
+    print(data["selectedGenre"])
+    num = randint(0, 4)
+    movies = get_recommendation(num, data['selectedGenre'])
+    pic = get_picture(num, data['selectedGenre'])
+    socketio.emit('returnRec', {"message": movies, "messages": pic})
+
 @socketio.on('room_created')
 def on_vote_start(data):
+    """This function emits that the voting has started, gets the genres, and returns details."""
     print(data)
     socketio.emit('vote_start', data, broadcast=True, include_self=True)
     socketio.emit('get_genres', data)
@@ -150,19 +163,21 @@ def on_vote_start(data):
 
 @socketio.on('vote_complete')
 def on_vote_complete(data):
+    """"Function emits that the voting has ended"""
     print(data)
     socketio.emit('vote_results', data, broadcast=True, include_self=True)
 
 @socketio.on('winner_update')
 def on_win_update(data):
+    """Function emits that there is a winning genre"""
     print("winner data received: " + str(data))
     socketio.emit('get_winner_update', broadcast=True, include_self=False)
 
 @socketio.on('create_start')
 def on_create_start(data):
+    """Function emits that host is in process of making room"""
     print(data)
     socketio.emit('member_wait', data, broadcast=True, include_self=False)
-    
 if __name__ == "__main__":
     # Note that we don't call app.run anymore. We call socketio.run with app arg
     socketio.run(

@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger, no-console */
 import "./App.css";
 import React, { useState } from "react";
 import { GoogleLogin } from "react-google-login";
@@ -41,20 +42,20 @@ function Login() {
     <div>
       {isShown === true ? (
         <div>
-          <div class="frontpage">
+          <div className="frontpage">
             <img
-              class="logo"
+              className="logo"
               src="https://media.discordapp.net/attachments/809594167730372609/837043406969503744/161963692198495630.png?width=468&height=468"
             />
-            <h1 class="text">
+            <h1 className="text">
               {" "}
               Having trouble deciding what to watch with your friends?{" "}
             </h1>
-            <h2 class="text">
+            <h2 className="text">
               {" "}
               Let us help you find the perfect thing to watch!!{" "}
             </h2>
-            <h3 class="text">
+            <h3 className="text">
               {" "}
               App by: Krupesh Ray, Katherine Thai, Ian Gabrielle Gojo Cruz, and
               Jessica Bakare!{" "}
@@ -71,7 +72,7 @@ function Login() {
           </div>
         </div>
       ) : (
-        <Logout class="frontpage" />
+        <Logout className="frontpage" />
       )}
       <div>
         {isShown === false ? (
