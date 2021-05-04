@@ -118,7 +118,7 @@ def on_returnDetails():
 def getRecommendation(data):
     """Returns recommended tv show or movie for the specified genre"""
     print("GET RECOMMENDED MOVIE!!!!!!")
-    print(data["chosen"])
+    print(data["selectedGenre"])
     admin = db.session.query(
         models.Person).filter_by(username=nameDateTimePlace[0]).first()
     num = randint(0, 4)
@@ -141,6 +141,15 @@ def getRecommendation(data):
     on_returnDetails()
     socketio.emit('returnRec', {"message": movies, "messages": pic})
 
+@socketio.on('suggest')
+def on_suggest(data):
+    """Returns a new movie suggestion"""
+    print("SUGGESTING A MOVIE!!!!")
+    print(data["selectedGenre"])
+    num = randint(0,4)
+    movies = get_recommendation(num, data['selectedGenre'])
+    pic = get_picture(num, data['selectedGenre'])
+    socketio.emit('returnRec', {"message": movies, "messages": pic})
 
 @socketio.on('room_created')
 def on_vote_start(data):

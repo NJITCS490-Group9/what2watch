@@ -1,14 +1,10 @@
-/* eslint-disable */
 import React from 'react';
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Results from './Results';
 import PropTypes from 'prop-types';
 /*import ChatApp from './ChatApp';*/
-
-
 const socket = io();
-
 const genreCardData = {
     'Action': 'https://i.imgur.com/aHzf8e9.gif',
     'Comedy': 'https://i.gifer.com/tmJ.gif',
@@ -16,7 +12,6 @@ const genreCardData = {
     'Horror': 'https://i.pinimg.com/originals/d8/06/08/d806085699179c5fc12ab69d91830f34.gif',
     'Romance': 'https://image.freepik.com/free-photo/couple-silhouettes-beach-sunset_106150-110.jpg',
 };
-
 export default function VotingScreen(props)
 {
     const { name } = props;
@@ -85,13 +80,18 @@ export default function VotingScreen(props)
                 updateNumVotes(numVotes + 1);
                 if(romanceVotes >= max_votes)
                 {
-         console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
+                    max_votes = romanceVotes;
+                    setWinner("Romance");
+                    console.log("winner in switch-case: ", winner);
+                }
+                break;
+            default:
+                console.log('Uh oh'); //placeholder for when I can think of a better thing to do for default case
         }
         console.log("winner at end of vote-select: ", winner);
         socket.emit("winner_update", {winning_genre: winner, winning_votes: max_votes})
         ;
     }
-
     const genre_cards = [];
     
     for (let i = 0; i < genres.length; i++){
@@ -132,7 +132,6 @@ export default function VotingScreen(props)
         socket.emit('returnDetails')
         return <Results name={ name } selectedGenre={ winner } socket={ socket } />;
     }
-
     return (
     <div className="container-fluid vote">
         <div className="row">
@@ -150,7 +149,6 @@ VotingScreen.propTypes = {
     name: PropTypes.string.isRequired,
     socket: PropTypes.any.isRequired,
 };
-
 function GenreCard(props)
 {
     return (
@@ -166,10 +164,8 @@ function GenreCard(props)
         
     );    
 }
-
 GenreCard.propTypes = {
     name: PropTypes.string.isRequired,
     voteSelect: PropTypes.any.isRequired,
     key: PropTypes.any.isRequired,
-};
-}
+}; 

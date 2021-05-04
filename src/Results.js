@@ -42,6 +42,17 @@ function Results(props) {
     );
     //<Confirmation selectedGenre={ selectedGenre } infoList={ infoList }/>;
   }
+  
+  function suggest() {
+    console.log("We need another suggestion");
+    setWatchVideo("");
+    setVideoPic("");
+    console.log("this");
+    console.log( {selectedGenre} );
+    console.log("that");
+    socket.emit('suggest',  {selectedGenre} );
+  }
+  
   console.log("watchVideo just before returning in Results: ", watchVideo);
   return (
     <div className="results">
@@ -57,6 +68,10 @@ function Results(props) {
 
       <button type="button" onClick={() => confirmation()}>
         Confirm Movie
+      </button>
+      
+      <button type="button" onClick={() => suggest()}>
+        Suggest Another
       </button>
       <ChatApp />
     </div>
