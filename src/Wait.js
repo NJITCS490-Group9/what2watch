@@ -1,8 +1,4 @@
-/* eslint-disable */
-import React, { useState, useRef } from "react";
-import Create from "./Create";
-import Join from "./Join";
-import PropTypes from "prop-types";
+import React from "react";
 import LoadingIcons from 'react-loading-icons'
 import "./Wait.css";
 

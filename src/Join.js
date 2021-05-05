@@ -1,9 +1,8 @@
-/* eslint-disable */
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 function Join(props) {
-  const { name, socket } = props;
+  const { socket } = props;
   const passcodeRef = useRef(null);
   const [passcode, setPasscode] = useState();
   const [user_passcode, setUser_Passcode] = useState();
@@ -40,7 +39,6 @@ function Join(props) {
 }
 
 Join.propTypes = {
-  name: PropTypes.string.isRequired,
   socket: PropTypes.any.isRequired,
 };
 

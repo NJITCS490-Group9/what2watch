@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import Item from "./Item";
@@ -10,7 +9,6 @@ const socket = io();
 function ChatApp() {
   const [messages, setMessages] = useState([]);
   const inputRef = useRef(null);
-  const joinRef = useRef(null);
 
   const [isShown, setShown] = useState(true);
 
@@ -38,18 +36,18 @@ function ChatApp() {
 
   return (
     <div>
-      <button class="button" onClick={() => onShowHide()}>
+      <button className="button" onClick={() => onShowHide()}>
         Chat with your friends!{" "}
       </button>
       {isShown === false ? (
-        <div class="ChatApp">
+        <div className="ChatApp">
           <div>
             {" "}
             {messages.map((item, index) => (
               <Item key={index} name={item} />
             ))}
           </div>
-          <input class="textbox" ref={inputRef} type="text" class="textbox" />
+          <input className="textbox" ref={inputRef} type="text" />
           <button onClick={() => onClickButton()}>Send</button>
         </div>
       ) : null}

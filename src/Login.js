@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger, no-console */
 import "./App.css";
 import React, { useState } from "react";
 import { GoogleLogin } from "react-google-login";

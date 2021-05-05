@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger, no-console */
 import React, { useState } from "react";
 import Create from "./Create";
 import Wait from "./Wait";

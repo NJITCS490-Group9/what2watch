@@ -157,7 +157,7 @@ def on_vote_start(data):
     """This function emits that the voting has started, gets the genres, and returns details."""
     print(data)
     socketio.emit('vote_start', data, broadcast=True, include_self=True)
-    socketio.emit('get_genres', data,  broadcast=True, include_self=True)
+    socketio.emit('get_genres', data, broadcast=True, include_self=True)
     socketio.emit('returningDetails', data)
 
 @socketio.on('vote_complete')

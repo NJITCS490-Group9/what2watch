@@ -1,6 +1,4 @@
-/* eslint-disable */
 import React, { useState, useRef } from "react";
-import Dropdown from "./Dropdown";
 import VotingScreen from "./VotingScreen";
 import PropTypes from "prop-types";
 import "./Create.css";
@@ -11,13 +9,10 @@ function Create(props) {
   // const [showPass, setShowPass] = useState(true);
   const [genreList, setGenreList] = useState([]);
   const [option, setOption] = useState();
-  // const [pass, setPass] = useState();
-  const mediaRef = useRef(null);
   const guestNumRef = useRef(null);
   const timeRef = useRef(null);
   const dateRef = useRef(null);
   const placeRef = useRef(null);
-  // const host_passcodeRef = useRef(null);
 
   const [genres, setGenres] = useState([
     { id: 1, value: "Comedy", isChecked: false },
@@ -60,7 +55,7 @@ function Create(props) {
     });
   }
 
-  function handleChange(e) {
+  function handleChange() {
     setOption(event.target.value);
   }
 
@@ -98,7 +93,7 @@ function Create(props) {
   //     return !prevShowPass;
   //   });
   // }
-
+  /* eslint-disable */
   return (
     <div className="container">
       {showCreate === true ? (
