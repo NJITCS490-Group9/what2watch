@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import Trailer from "./Trailer";
 import ChatApp from "./ChatApp";
@@ -7,6 +7,7 @@ function Results(props) {
   const { selectedGenre, socket } = props;
   const [infoList, setInfoList] = useState([]);
   const [watchVideo, setWatchVideo] = useState("");
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   useEffect(() => {
     socket.on("returningDetails", (data) => {
@@ -23,10 +24,13 @@ function Results(props) {
     socket.on("returnRec", (data) => {
       console.log("Video received");
       console.log(data.message);
-      //console.log(data.messages);
-      setWatchVideo(data.message);
+      //console.log("data.messages: ", data.messages);
+      const newVideo = data.message;
+      setWatchVideo("");
+      setWatchVideo(newVideo);
+      forceUpdate();
     });
-  }, []);
+  }, [watchVideo]);
   /*if (watchVideo.length == 0) {
     //socket.emit('returnDetails');
     socket.emit('getRecommendation', { selectedGenre });
@@ -39,9 +43,11 @@ function Results(props) {
     //<Confirmation selectedGenre={ selectedGenre } infoList={ infoList }/>;
   }
   
+  
   function suggest() {
     console.log("We need another suggestion");
-    setWatchVideo("");
+    setWatchVideo(watchVideo);
+    console.log("suggest set watchVideo to...", watchVideo);
     console.log("this");
     console.log( {selectedGenre} );
     console.log("that");
@@ -55,7 +61,7 @@ function Results(props) {
       <h3> Winning Genre: { selectedGenre } </h3>
       <h3> Recommendation: { watchVideo } </h3>
       
-      <Trailer title={ watchVideo }/>
+      <Trailer title={ watchVideo }/>;
 
       <p>Time: {infoList[2]} </p>
       <p>Date: {infoList[1]} </p>
