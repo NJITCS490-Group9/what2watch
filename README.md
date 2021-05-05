@@ -1,4 +1,6 @@
-Heroku Link: https://frozen-ocean-70572.herokuapp.com/
+Heroku Link(Sprint 1): https://frozen-ocean-70572.herokuapp.com/
+
+Heroku Link(Sprint 2): https://what2watch-cs490.herokuapp.com/
 
 CI Problem: mocked test not running correctly
 ![alt text](https://user-images.githubusercontent.com/43477079/115324799-837af700-a158-11eb-9aa8-9bb2cc1ad268.png)
