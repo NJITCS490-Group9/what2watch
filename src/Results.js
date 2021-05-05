@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
-import Trailer from "./Trailer";
+// import Trailer from "./Trailer";
 import ChatApp from "./ChatApp";
 
 function Results(props) {
   const { selectedGenre, socket } = props;
   const [infoList, setInfoList] = useState([]);
   const [watchVideo, setWatchVideo] = useState("");
+  const [watchPic, setWatchPic] = useState("");
+  // const [title, setTitle] = useState("");
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   useEffect(() => {
     socket.on("returningDetails", (data) => {
@@ -25,6 +28,9 @@ function Results(props) {
       console.log(data.message);
       //console.log(data.messages);
       setWatchVideo(data.message);
+      //setTitle(String(data.message));
+      setWatchPic(data.messages);
+      forceUpdate();
     });
   }, []);
   /*if (watchVideo.length == 0) {
@@ -55,7 +61,9 @@ function Results(props) {
       <h3> Winning Genre: { selectedGenre } </h3>
       <h3> Recommendation: { watchVideo } </h3>
       
-      <Trailer title={ watchVideo }/>
+      {/*<Trailer title={ watchVideo }/>
+      <Trailer title={ title }/>*/}
+      <img className="moviePic" src={ watchPic } alt="Video Poster Unavailable" />
 
       <p>Time: {infoList[2]} </p>
       <p>Date: {infoList[1]} </p>

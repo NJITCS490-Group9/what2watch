@@ -99,17 +99,47 @@ export default function VotingScreen(props)
         voteSelect;
     }, []);
     
-    const results = {
+    /*const results = {
         actionVotes: "Action",
         comedyVotes: "Comedy",
         fantasyVotes: "Fantasy",
         horrorVotes: "Horror",
         romanceVotes: "Romance",
-    }
+    }*/
     
-    let winner ="Action";
+    
+    let winner = "";
     if (selectedGenre.length != 0 && numVotes === numberOfParticipants){
-        winner = results[Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes)];
+        let max = Math.max(actionVotes, comedyVotes, fantasyVotes, horrorVotes, romanceVotes);
+        console.log("max: ", max);
+        console.log("A votes", actionVotes);
+        console.log("C votes", comedyVotes);
+        console.log("F votes", fantasyVotes);
+        console.log("H votes", horrorVotes);
+        console.log("R votes", romanceVotes);
+            
+        if(max == actionVotes)
+        {
+            winner = "Action";
+        }
+               
+        else if(max == comedyVotes)
+        {
+            winner = "Comedy";
+        }
+        else if(max == fantasyVotes)
+            {
+                 winner = "Fantasy";
+            }
+             else if(max == horrorVotes)
+             {
+                  winner = "Horror";
+             }
+            else if(max == romanceVotes)
+            {
+                winner = "Romance";
+            }
+        
         //console.log(selectedGenre);
         console.log("winner: ", winner);
         //console.log("winner when about to return results: ", winner); 
